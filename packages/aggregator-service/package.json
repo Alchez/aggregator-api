@@ -21,7 +21,10 @@
   "dependencies": {
     "@nestjs/common": "^5.4.0",
     "@nestjs/core": "^5.4.0",
+    "@nestjs/microservices": "^5.5.0",
     "@nestjs/typeorm": "^5.2.2",
+    "amqp-connection-manager": "^2.3.0",
+    "amqplib": "^0.5.3",
     "class-transformer": "^0.2.0",
     "class-validator": "^0.9.1",
     "joi": "^14.3.1",

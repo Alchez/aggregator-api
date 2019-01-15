@@ -1,4 +1,6 @@
-export const SEND_EMAIL = 'send_email';
+export const QUEUE_MESSAGE = 'queue_message';
 export const AUTHORIZATION = 'authorization';
 export const ADMINISTRATOR = 'administrator';
 export const TOKEN = 'token';
+export const CHANNEL = 'bt_channel';
+export const SERVICE_NAME = 'aggregator-service';
