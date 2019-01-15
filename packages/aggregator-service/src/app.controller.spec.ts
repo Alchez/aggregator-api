@@ -8,14 +8,19 @@ describe('AppController', () => {
   beforeAll(async () => {
     app = await Test.createTestingModule({
       controllers: [AppController],
-      providers: [AppService],
+      providers: [
+        {
+          provide: AppService,
+          useValue: {},
+        },
+      ],
     }).compile();
   });
 
   describe('root', () => {
-    it('should return "Hello World!"', () => {
+    it('should be defined', () => {
       const appController = app.get<AppController>(AppController);
-      expect(appController.root()).toBe('Hello World!');
+      expect(appController.info).toBeDefined();
     });
   });
 });

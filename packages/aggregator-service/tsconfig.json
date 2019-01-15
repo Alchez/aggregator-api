@@ -9,9 +9,11 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "target": "es6",
+    "lib": ["es6", "dom", "es2017"],
     "sourceMap": true,
     "outDir": "./dist",
-    "baseUrl": "./"
+    "baseUrl": "./",
+    "noUnusedLocals": true
   },
   "include": [
     "src/**/*"
