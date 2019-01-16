@@ -1,0 +1,35 @@
+kind: pipeline
+name: default
+
+steps:
+- name: test-aggregator-service
+  group: tests
+  image: node:latest
+  commands:
+  - cd packages/aggregator-service
+  - npm install
+  - npm run format:check
+  - npm run lint
+  # Set environment to test
+  - export NODE_ENV=test
+  - npm run test
+  - npm run test:e2e
+
+- name: test-aggregator-console
+  group: tests
+  image: registry.gitlab.com/castlecraft/docker-craft/node-latest-headless-chrome:latest
+  commands:
+  - cd packages/aggregator-console
+  - npm install
+  - npm run format:check
+  - npm run lint
+  # Set environment to test
+  - export NODE_ENV=test
+  - npm run test:server
+  - npm run test:e2e
+  # For headless chrome
+  - export DISPLAY=:99
+  - Xvfb :0 -ac -screen 0 1024x768x24 &
+  # Test frontend
+  - npm run test:client --watch=false
+  - npm run e2e

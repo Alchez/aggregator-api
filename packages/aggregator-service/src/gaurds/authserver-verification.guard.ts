@@ -6,7 +6,6 @@ import {
 } from '@nestjs/common';
 import { AUTHORIZATION } from './../constants/app-strings';
 import { SettingsService } from '../models/settings/settings.service';
-import { MANAGEMENT_CONSOLE } from '../models/settings/service-type';
 
 @Injectable()
 export class AuthServerVerificationGuard implements CanActivate {
@@ -30,9 +29,7 @@ export class AuthServerVerificationGuard implements CanActivate {
       const [clientId, clientSecret] = Buffer.from(basicAuthHeader, 'base64')
         .toString()
         .split(':');
-      const settings = await this.settingsService.findByType(
-        MANAGEMENT_CONSOLE,
-      );
+      const settings = await this.settingsService.findOne({});
       if (
         settings &&
         (settings.clientId && settings.clientId === clientId) &&
