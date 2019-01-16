@@ -1,7 +1,13 @@
 {
-  "name": "root",
   "private": true,
+  "scripts": {
+    "docs": "./scripts/build-docs.sh"
+  },
   "devDependencies": {
-    "lerna": "^3.5.0"
+    "@types/node": "^10.12.18",
+    "jest": "^23.4.0",
+    "lerna": "^3.10.5",
+    "npm-check": "^5.9.0",
+    "typedoc": "^0.14.1"
   }
 }
