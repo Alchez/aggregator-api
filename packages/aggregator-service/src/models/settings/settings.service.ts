@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Settings } from './settings.collection';
 import { settingsAlreadyExists } from '../../constants/exceptions';
+import { from } from 'rxjs';
 
 @Injectable()
 export class SettingsService {
@@ -40,5 +41,9 @@ export class SettingsService {
 
   async findAll() {
     return await this.settingsRepository.find();
+  }
+
+  getServerSettings() {
+    return from(this.findOne({}));
   }
 }

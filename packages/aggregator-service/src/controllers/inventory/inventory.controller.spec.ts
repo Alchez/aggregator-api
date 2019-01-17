@@ -1,5 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { InventoryController } from './inventory.controller';
+import { InventoryService } from './inventory.service';
+import { TokenGuard } from '../../gaurds/token.guard';
 
 describe('Inventory Controller', () => {
   let module: TestingModule;
@@ -7,7 +9,16 @@ describe('Inventory Controller', () => {
   beforeAll(async () => {
     module = await Test.createTestingModule({
       controllers: [InventoryController],
-    }).compile();
+      providers: [
+        {
+          provide: InventoryService,
+          useValue: {},
+        },
+      ],
+    })
+      .overrideGuard(TokenGuard)
+      .useValue({})
+      .compile();
   });
   it('should be defined', () => {
     const controller: InventoryController = module.get<InventoryController>(

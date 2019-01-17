@@ -8,6 +8,6 @@ async function bootstrap() {
   server.use(express.static(join(process.cwd(), 'dist/client')));
   const app = await NestFactory.create(AppModule, server);
   app.enableCors();
-  await app.listen(9100);
+  await app.listen(8100);
 }
 bootstrap();

@@ -8,7 +8,7 @@ import { MessageData } from './message-data.interface';
 export class MicroservicePatternController {
   constructor(private readonly patternService: MicroservicePatternService) {}
   @MessagePattern({ cmd: QUEUE_MESSAGE })
-  async systemEmail(data: MessageData) {
+  async queueMessage(data: MessageData) {
     return await this.patternService.processMessage(data);
   }
 }

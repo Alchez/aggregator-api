@@ -13,6 +13,7 @@ import { ControllersModule } from './controllers/controllers.module';
     HttpModule,
     ModelsModule,
     ControllersModule,
+    // QueuesModule, // For RabbitMQ
     TypeOrmModule.forRoot(TYPEORM_CONNECTION),
   ],
   controllers: [AppController],

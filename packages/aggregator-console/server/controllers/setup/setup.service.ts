@@ -49,13 +49,6 @@ export class SetupService {
     const info: any = await this.settingsService.findByType(MANAGEMENT_CONSOLE);
     if (info) {
       delete info.clientSecret, info._id;
-      const services = await this.settingsService.findAll();
-      info.services = services.map(service => {
-        return {
-          url: service.appURL,
-          type: service.type,
-        };
-      });
       return info;
     } else {
       return { message: PLEASE_RUN_SETUP };

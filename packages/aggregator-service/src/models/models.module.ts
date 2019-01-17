@@ -6,11 +6,30 @@ import { Settings } from './settings/settings.collection';
 import { SettingsService } from './settings/settings.service';
 import { QueueLog } from './queue-log/queue-log.collection';
 import { QueueLogService } from './queue-log/queue-log.service';
+import { RegisteredClientService } from './registered-client/registered-client.service';
+import { RegisteredClient } from './registered-client/registered-client.collection';
 
 @Global()
 @Module({
-  imports: [TypeOrmModule.forFeature([Settings, TokenCache, QueueLog])],
-  providers: [SettingsService, TokenCacheService, QueueLogService],
-  exports: [SettingsService, TokenCacheService, QueueLogService],
+  imports: [
+    TypeOrmModule.forFeature([
+      Settings,
+      TokenCache,
+      QueueLog,
+      RegisteredClient,
+    ]),
+  ],
+  providers: [
+    SettingsService,
+    TokenCacheService,
+    QueueLogService,
+    RegisteredClientService,
+  ],
+  exports: [
+    SettingsService,
+    TokenCacheService,
+    QueueLogService,
+    RegisteredClientService,
+  ],
 })
 export class ModelsModule {}

@@ -1,39 +1,37 @@
-import { Injectable, HttpService } from '@nestjs/common';
-import { MessageData } from './message-data.interface';
-import { QueueLog } from '../models/queue-log/queue-log.collection';
-import { QueueLogService } from '../models/queue-log/queue-log.service';
+import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
+import { LogNoteCommand } from './log-note.command';
+import { QueueLogService } from '../../models/queue-log/queue-log.service';
+import { QueueLog } from '../../models/queue-log/queue-log.collection';
+import { HttpService } from '@nestjs/common';
 import { retry, switchMap, catchError, delay } from 'rxjs/operators';
 import { from } from 'rxjs';
 
-@Injectable()
-export class MicroservicePatternService {
+@CommandHandler(LogNoteCommand)
+export class LogNoteHandler implements ICommandHandler<LogNoteCommand> {
   constructor(
-    private readonly http: HttpService,
     private readonly queueLog: QueueLogService,
+    private readonly http: HttpService,
   ) {}
 
-  async processMessage(data: MessageData) {
-    const { message, clientId } = data;
-
+  async execute(commandData: LogNoteCommand, resolve: (value?) => void) {
+    const { clientId, body } = commandData;
     const queueData = new QueueLog();
     queueData.clientId = clientId;
-    queueData.data = message;
+    queueData.data = body;
     const queueId = queueData.uuid;
+    resolve({ queueId });
     await this.queueLog.save(queueData),
       this.http
-        .get('http://localhost:9100/info')
+        .get('http://localhost:9000/info')
         .pipe(
           delay(7500),
           retry(3),
           switchMap(response => {
             return this.saveResponseToLog(queueId, response.data);
           }),
-          catchError(err => {
-            return this.saveErrorToLog(queueId, err.error);
-          }),
           switchMap(resolvedQueue => {
             // Fire webhook with data
-            return this.http.get('http://localhost:9100/info/service').pipe(
+            return this.http.get('http://localhost:9000/info/service').pipe(
               delay(7500),
               switchMap(webhookResponse => {
                 return this.saveWebhookResponseToLog(
@@ -41,24 +39,24 @@ export class MicroservicePatternService {
                   webhookResponse.data,
                 );
               }),
-              catchError(webhookError => {
-                return this.saveWebhookResponseToLog(
-                  queueId,
-                  webhookError.error,
-                );
-              }),
             );
           }),
         )
+        .pipe(
+          catchError(err => {
+            return this.saveErrorToLog(queueId, err);
+          }),
+        )
         .subscribe({
-          next: resolvedQueue => {
-            // Subscribe for results
+          next: async resolvedQueue => {
+            // Subscribe for success
+            // console.log('resolved queue . . .');
           },
-          error: err => {
-            // Subscribe to handle fatal errors
+          error: error => {
+            // Subscribe for error or results in fatal error
+            // console.error('error . . .');
           },
         });
-    return { message, clientId };
   }
 
   saveResponseToLog(uuid, response) {
