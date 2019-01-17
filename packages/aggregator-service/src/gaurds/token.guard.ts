@@ -9,7 +9,7 @@ import { SettingsService } from '../models/settings/settings.service';
 import { TokenCache } from '../models/token-cache/token-cache.collection';
 import { TokenCacheService } from '../models/token-cache/token-cache.service';
 import { TOKEN } from './../constants/app-strings';
-import { switchMap, retry } from 'rxjs/operators';
+import { switchMap, retry, catchError } from 'rxjs/operators';
 import { of, from } from 'rxjs';
 import * as Express from 'express';
 
@@ -50,24 +50,24 @@ export class TokenGuard implements CanActivate {
         const baseEncodedCred = Buffer.from(
           settings.clientId + ':' + settings.clientSecret,
         ).toString('base64');
-        return this.http
-          .post(
-            settings.introspectionURL,
-            { token: accessToken },
-            { headers: { Authorization: 'Basic ' + baseEncodedCred } },
-          )
-          .pipe(
-            retry(3),
-            switchMap(response => {
-              return from(this.cacheToken(response.data, accessToken)).pipe(
-                switchMap(cachedToken => {
-                  req[TOKEN] = cachedToken;
-                  return of(cachedToken.active);
-                }),
-              );
-            }),
-          );
+
+        const headers = new Map();
+        headers.set('Authorization', 'Basic ' + baseEncodedCred);
+        headers.set('Content-Type', 'application/x-www-form-urlencoded');
+
+        return this.http.post(
+          settings.introspectionURL,
+          { token: accessToken },
+          { headers },
+        );
       }),
+      retry(3),
+      switchMap(response => from(this.cacheToken(response.data, accessToken))),
+      switchMap(cachedToken => {
+        req[TOKEN] = cachedToken;
+        return of(cachedToken.active);
+      }),
+      catchError(error => of(false)),
     );
   }
 

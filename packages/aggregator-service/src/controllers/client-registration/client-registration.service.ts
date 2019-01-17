@@ -1,7 +1,7 @@
-import { Injectable, HttpService } from '@nestjs/common';
+import { Injectable, HttpService, BadRequestException } from '@nestjs/common';
 import { SettingsService } from '../../models/settings/settings.service';
-import { switchMap } from 'rxjs/operators';
-import { of, from } from 'rxjs';
+import { switchMap, map } from 'rxjs/operators';
+import { of, from, throwError } from 'rxjs';
 import { RegisteredClientService } from '../../models/registered-client/registered-client.service';
 import { RegisteredClient } from '../../models/registered-client/registered-client.collection';
 
@@ -14,7 +14,7 @@ export class ClientRegistrationService {
   ) {}
 
   registerClient(clientId: string, webhookURL: string, accessToken: string) {
-    return this.settingsService.getServerSettings().pipe(
+    return from(this.settingsService.getServerSettings()).pipe(
       switchMap(settings => {
         return this.http.get(
           settings.authServerURL + '/client/v1/getClientId/' + clientId,
@@ -22,15 +22,26 @@ export class ClientRegistrationService {
         );
       }),
       switchMap(response => {
-        if (response.status === 200 && response.data) {
-          const registeredClient = new RegisteredClient();
-          registeredClient.clientId = response.data.clientId;
-          registeredClient.clientSecret = response.data.clientSecret;
-          registeredClient.webhookURL = webhookURL;
-          registeredClient.clientId = response.data.clientId;
-          return from(this.registeredCLientService.save(registeredClient));
+        if (response.data) {
+          return from(this.registeredCLientService.findOne({ clientId })).pipe(
+            map(client => ({ response, client })),
+          );
         }
-        return of({ message: 'invalid_response' });
+      }),
+      switchMap(repsonseClientMap => {
+        const { client, response } = repsonseClientMap;
+        if (!client) {
+          const newClient = new RegisteredClient();
+          newClient.clientId = response.data.clientId;
+          newClient.clientSecret = response.data.clientSecret;
+          newClient.webhookURL = webhookURL;
+          newClient.clientId = response.data.clientId;
+          return from(this.registeredCLientService.save(newClient));
+        } else if (response.data.clientId === client.clientId) {
+          return of(client);
+        } else {
+          return throwError(new BadRequestException('Invalid Client'));
+        }
       }),
     );
   }
