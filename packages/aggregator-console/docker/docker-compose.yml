@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-vol:/data/db
+
+  aggregator-console:
+    image: aggregator-console:latest
+    ports:
+      - "8100:8100"
+    depends_on:
+      - mongo
+    links:
+      - mongo
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_NAME=${DB_NAME}
+      - NODE_ENV=${NODE_ENV}
+    volumes:
+      - aggregator-console-vol:/home/bloomstack/aggregator-console/files
+
+volumes:
+  mongo-vol:
+  aggregator-console-vol:

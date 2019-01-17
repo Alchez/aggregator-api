@@ -5,7 +5,7 @@ import { join } from 'path';
 
 async function bootstrap() {
   const server = express();
-  server.use(express.static(join(process.cwd(), 'dist/client')));
+  server.use(express.static(join(process.cwd(), 'dist/aggregator-console')));
   const app = await NestFactory.create(AppModule, server);
   app.enableCors();
   await app.listen(8100);

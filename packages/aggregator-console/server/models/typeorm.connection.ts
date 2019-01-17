@@ -7,8 +7,8 @@ const config = new ConfigService();
 
 export const TYPEORM_CONNECTION: MongoConnectionOptions = {
   type: 'mongodb',
-  host: config.get('MONGODB_HOST'),
-  database: config.get('MONGODB_NAME'),
+  host: config.get('DB_HOST'),
+  database: config.get('DB_NAME'),
   logging: false,
   entities: [Settings, TokenCache],
   useNewUrlParser: true,
