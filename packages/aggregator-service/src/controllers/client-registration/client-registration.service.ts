@@ -1,6 +1,6 @@
 import { Injectable, HttpService, BadRequestException } from '@nestjs/common';
 import { SettingsService } from '../../models/settings/settings.service';
-import { switchMap, map } from 'rxjs/operators';
+import { switchMap, map, catchError } from 'rxjs/operators';
 import { of, from, throwError } from 'rxjs';
 import { RegisteredClientService } from '../../models/registered-client/registered-client.service';
 import { RegisteredClient } from '../../models/registered-client/registered-client.collection';
@@ -39,10 +39,11 @@ export class ClientRegistrationService {
           return from(this.registeredCLientService.save(newClient));
         } else if (response.data.clientId === client.clientId) {
           return of(client);
-        } else {
-          return throwError(new BadRequestException('Invalid Client'));
         }
       }),
+      catchError(error =>
+        throwError(new BadRequestException('Invalid Client')),
+      ),
     );
   }
 }

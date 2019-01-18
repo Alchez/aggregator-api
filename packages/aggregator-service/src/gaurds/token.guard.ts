@@ -8,10 +8,11 @@ import {
 import { SettingsService } from '../models/settings/settings.service';
 import { TokenCache } from '../models/token-cache/token-cache.collection';
 import { TokenCacheService } from '../models/token-cache/token-cache.service';
-import { TOKEN } from './../constants/app-strings';
+import { TOKEN, AUTHORIZATION, CONTENT_TYPE } from './../constants/app-strings';
 import { switchMap, retry, catchError } from 'rxjs/operators';
 import { of, from } from 'rxjs';
 import * as Express from 'express';
+import { stringify } from 'querystring';
 
 @Injectable()
 export class TokenGuard implements CanActivate {
@@ -51,17 +52,16 @@ export class TokenGuard implements CanActivate {
           settings.clientId + ':' + settings.clientSecret,
         ).toString('base64');
 
-        const headers = new Map();
-        headers.set('Authorization', 'Basic ' + baseEncodedCred);
-        headers.set('Content-Type', 'application/x-www-form-urlencoded');
+        const headers = {};
+        headers[AUTHORIZATION] = 'Basic ' + baseEncodedCred;
+        headers[CONTENT_TYPE] = 'application/x-www-form-urlencoded';
 
-        return this.http.post(
-          settings.introspectionURL,
-          { token: accessToken },
-          { headers },
-        );
+        return this.http
+          .post(settings.introspectionURL, stringify({ token: accessToken }), {
+            headers,
+          })
+          .pipe(retry(3));
       }),
-      retry(3),
       switchMap(response => from(this.cacheToken(response.data, accessToken))),
       switchMap(cachedToken => {
         req[TOKEN] = cachedToken;
