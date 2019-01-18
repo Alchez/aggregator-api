@@ -1,31 +1,30 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { SetupController } from './setup.controller';
-import { SetupService } from './setup.service';
+import { SettingsController } from './settings.controller';
+import { SettingsService } from './settings.service';
 import { TokenGuard } from '../../guards/token.guard';
-import { RoleGuard } from '../../guards/role.guard';
+import { HttpModule } from '@nestjs/common';
 
-describe('Setup Controller', () => {
+describe('Settings Controller', () => {
   let module: TestingModule;
 
   beforeAll(async () => {
     module = await Test.createTestingModule({
-      controllers: [SetupController],
+      imports: [HttpModule],
+      controllers: [SettingsController],
       providers: [
         {
-          provide: SetupService,
+          provide: SettingsService,
           useValue: {},
         },
       ],
     })
       .overrideGuard(TokenGuard)
       .useValue({})
-      .overrideGuard(RoleGuard)
-      .useValue({})
       .compile();
   });
   it('should be defined', () => {
-    const controller: SetupController = module.get<SetupController>(
-      SetupController,
+    const controller: SettingsController = module.get<SettingsController>(
+      SettingsController,
     );
     expect(controller).toBeDefined();
   });

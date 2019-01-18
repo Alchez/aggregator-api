@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Settings } from './settings.collection';
 import { settingsAlreadyExists } from '../../constants/exceptions';
+import { AGGREGATOR_CONSOLE } from './service-type';
 
 @Injectable()
 export class SettingsService {
@@ -24,6 +25,10 @@ export class SettingsService {
 
   async findByType(type): Promise<Settings> {
     return await this.settingsRepository.findOne({ type });
+  }
+
+  async find() {
+    return await this.settingsRepository.findOne({ type: AGGREGATOR_CONSOLE });
   }
 
   async findOne(params) {

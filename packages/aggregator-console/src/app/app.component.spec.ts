@@ -1,33 +1,57 @@
 import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { MaterialModule } from './material.module';
+import { AppService } from './app.service';
+import { of } from 'rxjs';
+import { OAuthService } from 'angular-oauth2-oidc';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Component } from '@angular/core';
+import { oauthServiceStub } from './common/testing-helpers';
+
+const reqResp = {
+  uuid: '19421784-bb3d-4b4a-8994-dfe8f3eddf5a',
+  _id: '5ba0a00ca346651ecdf5af0c',
+  appURL: 'http://aggregator.localhost:8100',
+  authServerURL: 'http://accounts.localhost:3000',
+  clientId: 'fb670ac1-03e3-4618-8db1-8bca8131018c',
+  profileURL: 'http://accounts.localhost:3000/oauth2/profile',
+  tokenURL: 'http://accounts.localhost:3000/oauth2/get_token',
+  introspectionURL: 'http://accounts.localhost:3000/oauth2/introspection',
+  authorizationURL: 'http://accounts.localhost:3000/oauth2/confirmation',
+  callbackURLs: ['http://aggregator.localhost:8100/index.html'],
+  revocationURL: 'http://accounts.localhost:3000/oauth2/revoke',
+};
+
+const appServiceStub: Partial<AppService> = {
+  getMessage: () => {
+    return of(reqResp);
+  },
+};
+
+@Component({ selector: 'app-navigation', template: '' })
+class NavigationComponent {}
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
-      declarations: [AppComponent],
+      imports: [RouterTestingModule, MaterialModule, BrowserAnimationsModule],
+      declarations: [AppComponent, NavigationComponent],
+      providers: [
+        {
+          provide: AppService,
+          useValue: appServiceStub,
+        },
+        {
+          provide: OAuthService,
+          useValue: oauthServiceStub,
+        },
+      ],
     }).compileComponents();
   }));
-
-  it('should create the app', () => {
+  it('should create the app', async(() => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
-  });
-
-  it(`should have as title 'aggregator-console'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('aggregator-console');
-  });
-
-  it('should render title in a h1 tag', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain(
-      'Welcome to aggregator-console!',
-    );
-  });
+  }));
 });

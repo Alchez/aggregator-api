@@ -8,11 +8,11 @@ import {
 import { SettingsService } from '../models/settings/settings.service';
 import { TokenCache } from '../models/token-cache/token-cache.collection';
 import { TokenCacheService } from '../models/token-cache/token-cache.service';
-import { TOKEN } from './../constants/app-strings';
+import { TOKEN } from '../constants/app-strings';
 import { switchMap, retry } from 'rxjs/operators';
 import { of, from } from 'rxjs';
 import * as Express from 'express';
-import { MANAGEMENT_CONSOLE } from '../models/settings/service-type';
+import { AGGREGATOR_CONSOLE } from '../models/settings/service-type';
 
 @Injectable()
 export class TokenGuard implements CanActivate {
@@ -21,6 +21,7 @@ export class TokenGuard implements CanActivate {
     private readonly tokenCacheService: TokenCacheService,
     private readonly http: HttpService,
   ) {}
+
   canActivate(context: ExecutionContext) {
     const httpContext = context.switchToHttp();
     const req = httpContext.getRequest();
@@ -45,7 +46,7 @@ export class TokenGuard implements CanActivate {
   }
 
   introspectToken(accessToken: string, req: Express.Request) {
-    return from(this.settingsService.findByType(MANAGEMENT_CONSOLE)).pipe(
+    return from(this.settingsService.findByType(AGGREGATOR_CONSOLE)).pipe(
       switchMap(settings => {
         if (!settings) throw new NotImplementedException();
         const baseEncodedCred = Buffer.from(

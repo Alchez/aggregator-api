@@ -1,7 +1,7 @@
 import { Injectable, HttpService, BadRequestException } from '@nestjs/common';
 import { SettingsService } from '../../models/settings/settings.service';
 import { settingsAlreadyExists } from '../../constants/exceptions';
-import { MANAGEMENT_CONSOLE } from '../../models/settings/service-type';
+import { AGGREGATOR_CONSOLE } from '../../models/settings/service-type';
 import { PLEASE_RUN_SETUP } from '../../constants/messages';
 
 @Injectable()
@@ -18,7 +18,7 @@ export class SetupService {
 
   async setup(params) {
     const consoleSettings = await this.settingsService.findByType(
-      MANAGEMENT_CONSOLE,
+      AGGREGATOR_CONSOLE,
     );
     if (consoleSettings) {
       throw settingsAlreadyExists;
@@ -36,7 +36,7 @@ export class SetupService {
             params.appURL + '/index.html',
             params.appURL + '/silent-refresh.html',
           ];
-          params.type = MANAGEMENT_CONSOLE;
+          params.type = AGGREGATOR_CONSOLE;
           return await this.settingsService.save(params);
         },
         error: error => {
@@ -46,7 +46,7 @@ export class SetupService {
   }
 
   async getInfo() {
-    const info: any = await this.settingsService.findByType(MANAGEMENT_CONSOLE);
+    const info: any = await this.settingsService.findByType(AGGREGATOR_CONSOLE);
     if (info) {
       delete info.clientSecret, info._id;
       return info;
