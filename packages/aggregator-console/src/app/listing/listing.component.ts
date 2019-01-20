@@ -15,7 +15,7 @@ export class ListingComponent {
   @ViewChild(MatSort) sort: MatSort;
   dataSource: ListingDataSource;
 
-  displayedColumns = ['name', 'uuid'];
+  displayedColumns = [];
   model: string;
   search: string = '';
 
@@ -24,6 +24,7 @@ export class ListingComponent {
       .pipe(filter(route => route instanceof NavigationEnd))
       .subscribe((route: NavigationEnd) => {
         this.model = route.url.split('/')[1];
+        this.setIdentifierColumn();
       });
   }
 
@@ -48,5 +49,23 @@ export class ListingComponent {
       this.paginator.pageIndex,
       this.paginator.pageSize,
     );
+  }
+
+  setIdentifierColumn() {
+    switch (this.model) {
+      case 'registered-client':
+        this.displayedColumns.unshift('clientId');
+        break;
+      case 'queue-log':
+        this.displayedColumns.unshift('queueId');
+        break;
+      default:
+        break;
+    }
+  }
+
+  setColumnName(camelCase) {
+    const result = camelCase.replace(/([A-Z])/g, ' $1');
+    return result.charAt(0).toUpperCase() + result.slice(1);
   }
 }

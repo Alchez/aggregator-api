@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { SetupController } from './setup.controller';
 import { SetupService } from './setup.service';
-import { TokenGuard } from '../../gaurds/token.guard';
-import { RoleGuard } from '../../gaurds/role.guard';
+import { TokenGuard } from '../../guards/token.guard';
+import { RoleGuard } from '../../guards/role.guard';
 
 describe('Setup Controller', () => {
   let module: TestingModule;

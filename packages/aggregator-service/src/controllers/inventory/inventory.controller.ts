@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { InventoryService } from './inventory.service';
 import { LogNoteDto } from './inventory-dtos/log-note.dto';
-import { TokenGuard } from '../../gaurds/token.guard';
+import { TokenGuard } from '../../guards/token.guard';
 
 @Controller('inventory')
 export class InventoryController {

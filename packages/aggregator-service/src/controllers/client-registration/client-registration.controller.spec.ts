@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ClientRegistrationController } from './client-registration.controller';
 import { ClientRegistrationService } from './client-registration.service';
-import { TokenGuard } from '../../gaurds/token.guard';
-import { RoleGuard } from '../../gaurds/role.guard';
+import { TokenGuard } from '../../guards/token.guard';
+import { RoleGuard } from '../../guards/role.guard';
 
 describe('ClientRegistration Controller', () => {
   let module: TestingModule;

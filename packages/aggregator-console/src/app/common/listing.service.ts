@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { StorageService } from './storage.service';
-import { ISSUER_URL } from '../constants/storage';
+import { AGGREGATOR_SERVICE } from '../constants/storage';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { AuthService } from './auth.service';
 
@@ -21,7 +21,7 @@ export class ListingService {
     pageNumber = 0,
     pageSize = 10,
   ) {
-    const issuer = this.storageService.getInfo(ISSUER_URL);
+    const issuer = this.storageService.getServiceUrlByType(AGGREGATOR_SERVICE);
     const url = `${issuer}/${model}/v1/list`;
     const params = new HttpParams()
       .set('limit', pageSize.toString())

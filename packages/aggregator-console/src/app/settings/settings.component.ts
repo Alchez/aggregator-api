@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { SettingsService } from './settings.service';
-import { APP_URL, ISSUER_URL } from '../constants/storage';
+import { AGGREGATOR_SERVICE, AGGREGATOR_CONSOLE } from '../constants/storage';
+import { MatSnackBar } from '@angular/material';
+import { UPDATE_SETTINGS_ERROR, SETTINGS_UPDATED } from '../constants/messages';
 
 @Component({
   selector: 'app-settings',
@@ -11,90 +13,112 @@ import { APP_URL, ISSUER_URL } from '../constants/storage';
 export class SettingsComponent implements OnInit {
   issuerUrl: string;
   communicationServerClientId: string;
-  clientList: any[];
-  appURL: string;
-  clientId: string;
-  clientSecret: string;
-  hide: boolean = true;
+  consoleURL: string;
+  consoleClientId: string;
+  consoleClientSecret: string;
+  serviceURL: string;
+  serviceClientId: string;
+  serviceClientSecret: string;
+  hideConsoleSecret: boolean = true;
+  hideServiceSecret: boolean = true;
 
-  infraSettingsForm = new FormGroup({
-    appURL: new FormControl(this.appURL),
-    clientId: new FormControl(this.clientId),
-    clientSecret: new FormControl(this.clientSecret),
+  consoleForm = new FormGroup({
+    appURL: new FormControl(this.consoleURL),
+    clientId: new FormControl(this.consoleClientId),
+    clientSecret: new FormControl(this.consoleClientSecret),
   });
 
-  authSettingsForm = new FormGroup({
-    issuerUrl: new FormControl(this.issuerUrl),
-    communicationServerClientId: new FormControl(
-      this.communicationServerClientId,
-    ),
+  serviceForm = new FormGroup({
+    appURL: new FormControl(this.serviceURL),
+    clientId: new FormControl(this.serviceClientId),
+    clientSecret: new FormControl(this.serviceClientSecret),
   });
 
-  constructor(private settingsService: SettingsService) {}
+  constructor(
+    private settingsService: SettingsService,
+    private snackbar: MatSnackBar,
+  ) {}
 
   ngOnInit() {
-    this.settingsService.getClientSettings().subscribe({
-      next: (clientResponse: {
-        appURL: string;
-        clientId: string;
-        clientSecret: string;
-      }) => {
-        this.appURL = clientResponse.appURL;
-        this.clientId = clientResponse.clientId;
-        this.clientSecret = clientResponse.clientSecret;
-        this.populateClientForm(clientResponse);
+    this.settingsService.getClientSettings(AGGREGATOR_CONSOLE).subscribe({
+      next: consoleClient => {
+        this.consoleURL = consoleClient.appURL;
+        this.consoleClientId = consoleClient.clientId;
+        this.consoleClientSecret = consoleClient.clientSecret;
+        this.populateConsoleClientForm(consoleClient);
       },
     });
 
-    this.settingsService.getSettings().subscribe({
-      next: (response: {
-        issuerUrl: string;
-        communicationServerClientId: string;
-      }) => {
-        this.issuerUrl = response.issuerUrl;
-        this.communicationServerClientId = response.communicationServerClientId;
-        this.populateForm(response);
-      },
-    });
-    this.settingsService.getClientList().subscribe({
-      next: (response: any[]) => {
-        this.clientList = response;
+    this.settingsService.getClientSettings(AGGREGATOR_SERVICE).subscribe({
+      next: serviceClient => {
+        this.consoleURL = serviceClient.appURL;
+        this.consoleClientId = serviceClient.clientId;
+        this.consoleClientSecret = serviceClient.clientSecret;
+        this.populateServiceClientForm(serviceClient);
       },
     });
   }
 
   populateForm(response) {
-    this.authSettingsForm.controls.issuerUrl.setValue(response.issuerUrl);
-    this.authSettingsForm.controls.communicationServerClientId.setValue(
+    this.serviceForm.controls.issuerUrl.setValue(response.issuerUrl);
+    this.serviceForm.controls.communicationServerClientId.setValue(
       response.communicationServerClientId,
     );
   }
 
-  populateClientForm(clientResponse) {
-    this.infraSettingsForm.controls.appURL.setValue(clientResponse.appURL);
-    this.infraSettingsForm.controls.clientId.setValue(clientResponse.clientId);
-    this.infraSettingsForm.controls.clientSecret.setValue(
+  populateConsoleClientForm(clientResponse) {
+    this.consoleForm.controls.appURL.setValue(clientResponse.appURL);
+    this.consoleForm.controls.clientId.setValue(clientResponse.clientId);
+    this.consoleForm.controls.clientSecret.setValue(
       clientResponse.clientSecret,
     );
   }
 
-  updateAuthSettings() {
+  populateServiceClientForm(clientResponse) {
+    this.serviceForm.controls.appURL.setValue(clientResponse.appURL);
+    this.serviceForm.controls.clientId.setValue(clientResponse.clientId);
+    this.serviceForm.controls.clientSecret.setValue(
+      clientResponse.clientSecret,
+    );
+  }
+
+  updateConsoleSettings() {
     this.settingsService
-      .update(
-        this.authSettingsForm.controls.issuerUrl.value,
-        this.authSettingsForm.controls.communicationServerClientId.value,
+      .updateSettings(
+        AGGREGATOR_CONSOLE,
+        this.consoleForm.controls.appURL.value,
+        this.consoleForm.controls.clientId.value,
+        this.consoleForm.controls.clientSecret.value,
       )
       .subscribe({
-        next: response => {},
+        next: success => {
+          this.snackbar.open(SETTINGS_UPDATED, 'Close', { duration: 2500 });
+        },
+        error: fail => {
+          this.snackbar.open(UPDATE_SETTINGS_ERROR, 'Close', {
+            duration: 2500,
+          });
+        },
       });
   }
 
-  updateAuthClientSettings() {
-    this.settingsService.getClientUpdate(
-      localStorage.getItem(APP_URL),
-      localStorage.getItem(ISSUER_URL),
-      this.infraSettingsForm.controls.clientId.value,
-      this.infraSettingsForm.controls.clientSecret.value,
-    );
+  updateServiceSettings() {
+    this.settingsService
+      .updateSettings(
+        AGGREGATOR_SERVICE,
+        this.serviceForm.controls.appURL.value,
+        this.serviceForm.controls.clientId.value,
+        this.serviceForm.controls.clientSecret.value,
+      )
+      .subscribe({
+        next: success => {
+          this.snackbar.open(SETTINGS_UPDATED, 'Close', { duration: 2500 });
+        },
+        error: fail => {
+          this.snackbar.open(UPDATE_SETTINGS_ERROR, 'Close', {
+            duration: 2500,
+          });
+        },
+      });
   }
 }

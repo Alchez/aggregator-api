@@ -1,22 +1,26 @@
 import { Module, Global } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { TokenCache } from './token-cache/token-cache.collection';
+import { MongooseModule } from '@nestjs/mongoose';
 import { TokenCacheService } from './token-cache/token-cache.service';
-import { Settings } from './settings/settings.collection';
 import { SettingsService } from './settings/settings.service';
-import { QueueLog } from './queue-log/queue-log.collection';
 import { QueueLogService } from './queue-log/queue-log.service';
 import { RegisteredClientService } from './registered-client/registered-client.service';
-import { RegisteredClient } from './registered-client/registered-client.collection';
+import { QUEUE_LOG, QueueLog } from './queue-log/queue-log.schema';
+import {
+  REGISTERED_CLIENT,
+  RegisteredClient,
+} from './registered-client/registered-client.schema';
+import { SETTINGS, Settings } from './settings/settings.schema';
+import { TOKEN_CACHE, TokenCache } from './token-cache/token-cache.collection';
+import { PaginateService } from './paginate/paginate.service';
 
 @Global()
 @Module({
   imports: [
-    TypeOrmModule.forFeature([
-      Settings,
-      TokenCache,
-      QueueLog,
-      RegisteredClient,
+    MongooseModule.forFeature([
+      { name: SETTINGS, schema: Settings },
+      { name: QUEUE_LOG, schema: QueueLog },
+      { name: REGISTERED_CLIENT, schema: RegisteredClient },
+      { name: TOKEN_CACHE, schema: TokenCache },
     ]),
   ],
   providers: [
@@ -24,12 +28,14 @@ import { RegisteredClient } from './registered-client/registered-client.collecti
     TokenCacheService,
     QueueLogService,
     RegisteredClientService,
+    PaginateService,
   ],
   exports: [
     SettingsService,
     TokenCacheService,
     QueueLogService,
     RegisteredClientService,
+    PaginateService,
   ],
 })
 export class ModelsModule {}

@@ -6,7 +6,6 @@ import {
   HttpService,
 } from '@nestjs/common';
 import { SettingsService } from '../models/settings/settings.service';
-import { TokenCache } from '../models/token-cache/token-cache.collection';
 import { TokenCacheService } from '../models/token-cache/token-cache.service';
 import { TOKEN, AUTHORIZATION, CONTENT_TYPE } from './../constants/app-strings';
 import { switchMap, retry, catchError } from 'rxjs/operators';
@@ -82,7 +81,7 @@ export class TokenGuard implements CanActivate {
     );
   }
 
-  cacheToken(introspectedToken: any, accessToken: string): Promise<TokenCache> {
+  cacheToken(introspectedToken: any, accessToken: string) {
     introspectedToken.accessToken = accessToken;
     introspectedToken.clientId = introspectedToken.client_id;
     return this.tokenCacheService.save(introspectedToken);

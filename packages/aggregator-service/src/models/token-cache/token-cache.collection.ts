@@ -1,28 +1,23 @@
-import { Entity, BaseEntity, Column, ObjectIdColumn, ObjectID } from 'typeorm';
-import * as uuidv4 from 'uuid/v4';
+import * as mongoose from 'mongoose';
 
-@Entity()
-export class TokenCache extends BaseEntity {
-  @ObjectIdColumn()
-  _id: ObjectID;
-  @Column()
-  accessToken: string;
-  @Column()
-  uuid: string;
-  @Column()
-  active: boolean;
-  @Column()
-  exp: number;
-  @Column()
-  sub: string;
-  @Column({ type: 'json' })
-  scope: JSON;
-  @Column({ type: 'json' })
-  roles: JSON;
-  @Column()
-  clientId: string;
-  constructor() {
-    super();
-    if (!this.uuid) this.uuid = uuidv4();
-  }
-}
+export const schema = new mongoose.Schema(
+  {
+    accessToken: String,
+    uuid: String,
+    active: Boolean,
+    exp: Number,
+    sub: String,
+    scope: [String],
+    roles: [String],
+    clientId: String,
+  },
+  { collection: 'token_cache', versionKey: false },
+);
+
+schema.index({ uuid: 1, clientId: 1, sub: 1 });
+
+export const TokenCache = schema;
+
+export const TOKEN_CACHE = 'TokenCache';
+
+export const TokenCacheModel = mongoose.model(TOKEN_CACHE, TokenCache);

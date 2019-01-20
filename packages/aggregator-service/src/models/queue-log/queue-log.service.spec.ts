@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { QueueLogService } from './queue-log.service';
-import { getRepositoryToken } from '@nestjs/typeorm';
-import { QueueLog } from './queue-log.collection';
+import { getModelToken } from '@nestjs/mongoose';
+import { QUEUE_LOG } from './queue-log.schema';
 
 describe('QueueLogService', () => {
   let service: QueueLogService;
@@ -11,7 +11,7 @@ describe('QueueLogService', () => {
       providers: [
         QueueLogService,
         {
-          provide: getRepositoryToken(QueueLog),
+          provide: getModelToken(QUEUE_LOG),
           useValue: {},
         },
       ],

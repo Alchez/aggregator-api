@@ -9,10 +9,10 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { ClientRegistrationService } from './client-registration.service';
-import { TokenGuard } from '../../gaurds/token.guard';
+import { TokenGuard } from '../../guards/token.guard';
 import { Roles } from '../../decorators/roles.decorator';
 import { ADMINISTRATOR } from '../../constants/roles';
-import { RoleGuard } from '../../gaurds/role.guard';
+import { RoleGuard } from '../../guards/role.guard';
 import { ClientRegistrationDto } from './client-registration.dto';
 
 @Controller('client-registration')

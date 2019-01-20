@@ -1,9 +1,8 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { LogNoteCommand } from './log-note.command';
 import { QueueLogService } from '../../models/queue-log/queue-log.service';
-import { QueueLog } from '../../models/queue-log/queue-log.collection';
 import { HttpService, ForbiddenException } from '@nestjs/common';
-import { retry, switchMap, catchError, delay } from 'rxjs/operators';
+import { retry, switchMap, catchError } from 'rxjs/operators';
 import { from, throwError } from 'rxjs';
 import { RegisteredClientService } from '../../models/registered-client/registered-client.service';
 
@@ -17,7 +16,7 @@ export class LogNoteHandler implements ICommandHandler<LogNoteCommand> {
 
   async execute(commandData: LogNoteCommand, resolve: (value?) => void) {
     const { clientId, body } = commandData;
-    const queueData = new QueueLog();
+    const queueData = new (this.queueLog.getModel())();
     queueData.clientId = clientId;
     queueData.data = body;
     const queueId = queueData.uuid;
@@ -32,7 +31,6 @@ export class LogNoteHandler implements ICommandHandler<LogNoteCommand> {
 
     from(this.registeredClientService.findOne({ clientId }))
       .pipe(
-        delay(10000), // TO DEMO DELAY, REMOVE IN PRODUCTION
         retry(3),
         switchMap(foundClient => {
           if (!foundClient) {

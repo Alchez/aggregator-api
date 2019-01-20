@@ -1,6 +1,5 @@
 import { Injectable, HttpService } from '@nestjs/common';
 import { MessageData } from './message-data.interface';
-import { QueueLog } from '../models/queue-log/queue-log.collection';
 import { QueueLogService } from '../models/queue-log/queue-log.service';
 import { retry, switchMap, catchError, delay } from 'rxjs/operators';
 import { from } from 'rxjs';
@@ -15,7 +14,7 @@ export class MicroservicePatternService {
   async processMessage(data: MessageData) {
     const { message, clientId } = data;
 
-    const queueData = new QueueLog();
+    const queueData = new (this.queueLog.getModel())();
     queueData.clientId = clientId;
     queueData.data = message;
     const queueId = queueData.uuid;

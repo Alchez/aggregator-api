@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { RegisteredClientService } from './registered-client.service';
-import { getRepositoryToken } from '@nestjs/typeorm';
-import { RegisteredClient } from './registered-client.collection';
+import { getModelToken } from '@nestjs/mongoose';
+import { REGISTERED_CLIENT } from './registered-client.schema';
 
 describe('RegisteredClientService', () => {
   let service: RegisteredClientService;
@@ -11,7 +11,7 @@ describe('RegisteredClientService', () => {
       providers: [
         RegisteredClientService,
         {
-          provide: getRepositoryToken(RegisteredClient),
+          provide: getModelToken(REGISTERED_CLIENT),
           useValue: {},
         },
       ],

@@ -10,6 +10,9 @@ import { ModuleRef } from '@nestjs/core';
 import { BloomRequestSagas } from './bloom-request.saga';
 import { ClientRegistrationController } from './client-registration/client-registration.controller';
 import { ClientRegistrationService } from './client-registration/client-registration.service';
+import { RegisteredClientController } from './registered-client/registered-client.controller';
+import { SettingsController } from './settings/settings.controller';
+import { SettingsManagementService } from './settings/settings-management.service';
 
 @Module({
   imports: [HttpModule, CQRSModule],
@@ -18,6 +21,8 @@ import { ClientRegistrationService } from './client-registration/client-registra
     SetupController,
     InventoryController,
     ClientRegistrationController,
+    RegisteredClientController,
+    SettingsController,
   ],
   providers: [
     SetupService,
@@ -26,6 +31,7 @@ import { ClientRegistrationService } from './client-registration/client-registra
     ClientRequestFiredEventHandler,
     BloomRequestSagas,
     ClientRegistrationService,
+    SettingsManagementService,
   ],
 })
 export class ControllersModule implements OnModuleInit {

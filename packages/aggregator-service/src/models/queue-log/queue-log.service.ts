@@ -1,24 +1,30 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { QueueLog } from './queue-log.collection';
-import { MongoRepository } from 'typeorm';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { QueueLog } from './queue-log.interface';
+import { QUEUE_LOG } from './queue-log.schema';
 
 @Injectable()
 export class QueueLogService {
   constructor(
-    @InjectRepository(QueueLog)
-    private readonly queueLogRepository: MongoRepository<QueueLog>,
+    @InjectModel(QUEUE_LOG)
+    private readonly queueLogModel: Model<QueueLog>,
   ) {}
 
   async save(params) {
-    return await this.queueLogRepository.save(params);
+    const queueLog = new this.queueLogModel(params);
+    return await queueLog.save();
   }
 
   async findOne(params) {
-    return await this.queueLogRepository.findOne(params);
+    return await this.queueLogModel.findOne(params);
   }
 
   async find() {
-    return await this.queueLogRepository.find();
+    return await this.queueLogModel.find().exec();
+  }
+
+  getModel() {
+    return this.queueLogModel;
   }
 }

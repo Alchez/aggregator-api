@@ -3,7 +3,6 @@ import { CommandBus } from '@nestjs/cqrs';
 import { LogNoteCommand } from '../../commands/log-note/log-note.command';
 import { retry } from 'rxjs/operators';
 import { QueueLogService } from '../../models/queue-log/queue-log.service';
-import { QueueLog } from '../../models/queue-log/queue-log.collection';
 
 @Injectable()
 export class InventoryService {
@@ -47,7 +46,7 @@ export class InventoryService {
       .pipe(retry(3))
       .subscribe({
         next: async response => {
-          const queue = new QueueLog();
+          const queue = new (this.queueLog.getModel())();
           queue.clientId = '420'; // take from request
           queue.data = payload;
           queue.response = response.data;
@@ -55,7 +54,7 @@ export class InventoryService {
           // Fire webhook;
         },
         error: async err => {
-          const queue = new QueueLog();
+          const queue = new (this.queueLog.getModel())();
           queue.clientId = '420'; // take from request
           queue.data = payload;
           queue.error = err.error;

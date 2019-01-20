@@ -5,3 +5,6 @@ export const LOGIN_URL = 'login_url';
 export const ISSUER_URL = 'issuer_url';
 export const APP_URL = 'app_url';
 export const USER_UUID = 'user_uuid';
+export const SERVICES = 'services';
+export const AGGREGATOR_SERVICE = 'aggregator-service';
+export const AGGREGATOR_CONSOLE = 'aggregator-console';

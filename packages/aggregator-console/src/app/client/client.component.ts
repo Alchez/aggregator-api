@@ -7,6 +7,7 @@ import {
   CLIENT_UPDATED,
   CLIENT_CREATED,
   CLIENT_ERROR,
+  CLIENT_UPDATE_ERROR,
 } from '../constants/messages';
 import { NEW_ID } from '../constants/common';
 import { CreateClientResponse } from '../interfaces/client-response.interface';
@@ -28,6 +29,7 @@ export class ClientComponent implements OnInit {
   tokenDeleteEndpoint: string;
   userDeleteEndpoint: string;
   changedClientSecret: string;
+  webhookURL: string;
 
   hideClientSecret: boolean = true;
   hideChangedClientSecret: boolean = true;
@@ -35,6 +37,7 @@ export class ClientComponent implements OnInit {
   scopes: any[] = [];
 
   clientForm: FormGroup;
+  registrationForm: FormGroup;
   callbackURLForms: FormArray;
 
   constructor(
@@ -60,6 +63,9 @@ export class ClientComponent implements OnInit {
       changedClientSecret: this.changedClientSecret,
     });
 
+    this.registrationForm = this.formBuilder.group({
+      webhookURL: this.webhookURL,
+    });
     if (this.uuid && this.uuid !== NEW_ID) {
       this.subscribeGetClient(this.uuid);
     }
@@ -150,6 +156,21 @@ export class ClientComponent implements OnInit {
       });
   }
 
+  updateClientRegistration() {
+    this.clientService
+      .updateRegistration(this.clientForm.controls.clientId.value, {
+        webhookURL: this.registrationForm.controls.webhookURL.value,
+      })
+      .subscribe({
+        next: success => {
+          this.snackbar.open(CLIENT_UPDATED, 'Close', { duration: 2500 });
+        },
+        error: fail => {
+          this.snackbar.open(CLIENT_UPDATE_ERROR, 'Close', { duration: 2500 });
+        },
+      });
+  }
+
   subscribeGetScopes() {
     this.clientService.getScopes().subscribe({
       next: (response: any) => {
@@ -167,6 +188,7 @@ export class ClientComponent implements OnInit {
     this.clientSecret = client.clientSecret;
     this.clientName = client.name;
     this.callbackURLs = client.redirectUris;
+    this.webhookURL = client.webhookURL;
     this.clientForm.controls.tokenDeleteEndpoint.setValue(
       client.tokenDeleteEndpoint,
     );
@@ -184,5 +206,6 @@ export class ClientComponent implements OnInit {
     this.clientForm.controls.clientName.setValue(client.name);
     this.clientForm.controls.isTrusted.setValue(client.isTrusted);
     this.clientForm.controls.clientScopes.setValue(client.allowedScopes);
+    this.registrationForm.controls.webhookURL.setValue(client.webhookURL);
   }
 }

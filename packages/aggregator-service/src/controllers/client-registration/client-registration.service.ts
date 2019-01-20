@@ -3,7 +3,6 @@ import { SettingsService } from '../../models/settings/settings.service';
 import { switchMap, map, catchError } from 'rxjs/operators';
 import { of, from, throwError } from 'rxjs';
 import { RegisteredClientService } from '../../models/registered-client/registered-client.service';
-import { RegisteredClient } from '../../models/registered-client/registered-client.collection';
 
 @Injectable()
 export class ClientRegistrationService {
@@ -31,7 +30,7 @@ export class ClientRegistrationService {
       switchMap(repsonseClientMap => {
         const { client, response } = repsonseClientMap;
         if (!client) {
-          const newClient = new RegisteredClient();
+          const newClient = new (this.registeredCLientService.getModel())();
           newClient.clientId = response.data.clientId;
           newClient.clientSecret = response.data.clientSecret;
           newClient.webhookURL = webhookURL;

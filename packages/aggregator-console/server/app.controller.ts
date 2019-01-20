@@ -1,6 +1,5 @@
-import { Get, Controller, Res } from '@nestjs/common';
+import { Get, Controller } from '@nestjs/common';
 import { AppService } from './app.service';
-import { INDEX_HTML } from './constants/filesystem';
 
 @Controller()
 export class AppController {
@@ -9,10 +8,5 @@ export class AppController {
   @Get('info')
   info() {
     return this.appService.info();
-  }
-
-  @Get('*')
-  wildcard(@Res() res) {
-    res.sendFile(INDEX_HTML);
   }
 }

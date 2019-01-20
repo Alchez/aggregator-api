@@ -10,12 +10,12 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
 
   {
-    path: 'client/list',
+    path: 'registered-client/list',
     component: ListingComponent,
     canActivate: [AuthGuard],
   },
   {
-    path: 'client/:id',
+    path: 'registered-client/:id',
     component: ClientComponent,
     canActivateChild: [AuthGuard],
   },

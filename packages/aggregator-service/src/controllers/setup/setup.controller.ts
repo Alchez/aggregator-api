@@ -14,7 +14,7 @@ export class SetupController {
 
   @Post()
   @UsePipes(ValidationPipe)
-  async setup(@Body() payload: SettingsDto) {
-    await this.setupService.setup(payload);
+  setup(@Body() payload: SettingsDto) {
+    return this.setupService.setup(payload);
   }
 }

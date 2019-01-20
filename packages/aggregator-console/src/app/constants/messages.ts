@@ -9,3 +9,6 @@ export const LOGIN_AS_ADMINISTRATOR = 'Please login as administrator';
 export const SOCIAL_LOGIN_ERROR = 'Could not create Social Login';
 export const SOCIAL_LOGIN_UPDATED = 'Social Login Updated Successfully';
 export const SOCIAL_LOGIN_CREATED = 'Social Login Added Successfully';
+export const CLIENT_UPDATE_ERROR = 'Could not update client.';
+export const SETTINGS_UPDATED = 'Settings updated';
+export const UPDATE_SETTINGS_ERROR = 'Update settings failed';

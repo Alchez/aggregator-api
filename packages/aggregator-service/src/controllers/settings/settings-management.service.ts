@@ -1,10 +1,11 @@
 import { Injectable, HttpService } from '@nestjs/common';
 import { Observable, from, of } from 'rxjs';
 import { switchMap, catchError } from 'rxjs/operators';
-import { Settings } from '../../models/settings/settings.collection';
+import { Settings } from '../../models/settings/settings.interface';
+import { SettingsService } from '../../models/settings/settings.service';
 
 @Injectable()
-export class SettingsService {
+export class SettingsManagementService {
   constructor(
     private readonly serverSettingsService: SettingsService,
     private readonly http: HttpService,

@@ -1,34 +1,38 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { MongoRepository } from 'typeorm';
-import { RegisteredClient } from './registered-client.collection';
+import { REGISTERED_CLIENT } from './registered-client.schema';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { RegisteredClient } from './registered-client.interface';
 
 @Injectable()
 export class RegisteredClientService {
   constructor(
-    @InjectRepository(RegisteredClient)
-    private readonly registeredClientRepository: MongoRepository<
-      RegisteredClient
-    >,
+    @InjectModel(REGISTERED_CLIENT)
+    private readonly registeredClientModel: Model<RegisteredClient>,
   ) {}
 
   async save(params) {
-    return await this.registeredClientRepository.save(params);
+    const registeredClient = new this.registeredClientModel(params);
+    return await registeredClient.save();
   }
 
   async findOne(params) {
-    return await this.registeredClientRepository.findOne(params);
+    return await this.registeredClientModel.findOne(params);
   }
 
   async find() {
-    return await this.registeredClientRepository.find();
+    return await this.registeredClientModel.find().exec();
   }
 
   async deleteOne(params) {
-    return await this.registeredClientRepository.deleteOne(params);
+    return await this.registeredClientModel.deleteOne(params);
   }
 
   async deleteMany(params) {
-    return await this.registeredClientRepository.deleteMany(params);
+    return await this.registeredClientModel.deleteMany(params);
+  }
+
+  getModel() {
+    return this.registeredClientModel;
   }
 }

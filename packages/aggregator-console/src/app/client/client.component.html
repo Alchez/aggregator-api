@@ -1,8 +1,9 @@
 <div class="card-container">
+  <div fxLayout="column" fxLayoutGap="1em">
     <form [formGroup]="clientForm">
-      <mat-card>
-        <mat-card-title>{{ clientName || "New Client" }}</mat-card-title>
-        <mat-card-content fxLayout="column">
+        <mat-card>
+          <mat-card-title>{{ clientName || "New Client" }}</mat-card-title>
+          <mat-card-content fxLayout="column">
             <mat-form-field>
               <input matInput placeholder="Client Name" formControlName="clientName" required>
               <mat-checkbox formControlName="isTrusted" matSuffix>Trusted</mat-checkbox>
@@ -44,12 +45,25 @@
             <button mat-icon-button color="accent" (click)="addCallbackURL()">
                 Add Callback URL <mat-icon>add</mat-icon>
             </button>
-
-        </mat-card-content>
-        <mat-card-actions>
-          <button (click)="createClient()" mat-flat-button color="primary" [disabled]="!clientForm.valid" *ngIf="!clientId">Create</button>
-          <button (click)="updateClient()" mat-flat-button color="primary" [disabled]="!clientForm.valid" *ngIf="clientId">Update</button>
-        </mat-card-actions>
-      </mat-card>
-    </form>
+          </mat-card-content>
+          <mat-card-actions>
+            <button (click)="createClient()" mat-button color="primary" [disabled]="!clientForm.valid" *ngIf="!clientId">Create</button>
+            <button (click)="updateClient()" mat-button color="primary" [disabled]="!clientForm.valid" *ngIf="clientId">Update</button>
+          </mat-card-actions>
+        </mat-card>
+      </form>
+      <form [formGroup]="registrationForm" *ngIf="uuid !== 'new'">
+        <mat-card>
+          <mat-card-title>Registration Details</mat-card-title>
+          <mat-card-content fxLayout="column">
+            <mat-form-field>
+              <input matInput placeholder="Webhook URL" formControlName="webhookURL">
+            </mat-form-field>
+          </mat-card-content>
+          <mat-card-actions>
+            <button (click)="updateClientRegistration()" mat-button color="primary" [disabled]="!registrationForm.valid">Update</button>
+          </mat-card-actions>
+        </mat-card>
+      </form>
   </div>
+</div>
