@@ -33,3 +33,76 @@ steps:
   # Test frontend
   - npm run test:client --watch=false
   - npm run e2e
+
+- name: build-staging-aggregator-service
+  image: plugins/docker
+  # volumes: # Use for local testing
+  #   - name: docker
+  #     path: /var/run/docker.sock
+  settings:
+    repo: bloomstack/aggregator-service
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+    dockerfile: packages/aggregator-service/Dockerfile
+    context: packages/aggregator-service
+    tags:
+      - edge
+  when:
+    branch:
+      - staging
+
+- name: build-staging-aggregator-console
+  image: plugins/docker
+  settings:
+    repo: bloomstack/aggregator-console
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+    dockerfile: packages/aggregator-console/Dockerfile
+    context: packages/aggregator-console
+    tags:
+      - edge
+  when:
+    branch:
+      - staging
+
+- name: build-production-aggregator-service
+  image: plugins/docker
+  settings:
+    auto_tag: true
+    repo: bloomstack/aggregator-service
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+    dockerfile: packages/aggregator-service/Dockerfile
+    context: packages/aggregator-service
+  when:
+    branch:
+      - master
+
+- name: build-production-aggregator-console
+  image: plugins/docker
+  settings:
+    auto_tag: true
+    repo: bloomstack/aggregator-console
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+    dockerfile: packages/aggregator-console/Dockerfile
+    context: packages/aggregator-console
+  when:
+    branch:
+      - master
+
+######################################
+# Use for local testing docker build #
+######################################
+# volumes:
+# - name: docker
+#   host:
+#     path: /var/run/docker.sock
