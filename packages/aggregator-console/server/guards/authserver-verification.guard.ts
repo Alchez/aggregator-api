@@ -5,11 +5,11 @@ import {
   Injectable,
 } from '@nestjs/common';
 import { AUTHORIZATION } from '../constants/app-strings';
-import { ServerSettingsService } from '../models/server-settings/server-settings.service';
+import { SettingsService } from '../models/settings/settings.service';
 
 @Injectable()
 export class AuthServerVerificationGuard implements CanActivate {
-  constructor(private readonly settingsService: ServerSettingsService) {}
+  constructor(private readonly settingsService: SettingsService) {}
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const httpContext = context.switchToHttp();
     const request = httpContext.getRequest();
