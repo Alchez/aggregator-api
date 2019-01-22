@@ -1,0 +1,69 @@
+# Default values for aggregator-service.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: bloomstack/aggregator-service
+  tag: latest
+  pullPolicy: Always
+
+nameOverride: ""
+fullnameOverride: ""
+
+service:
+  type: ClusterIP
+  port: 7100
+
+NODE_ENV: production
+
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+    certmanager.k8s.io/cluster-issuer: letsencrypt-prod
+  paths:
+    - /
+  hosts:
+    - api.bloomstack.com
+  tls:
+   - secretName: api-bloomstack-com-tls
+     hosts:
+       - api.bloomstack.com
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #  cpu: 100m
+  #  memory: 128Mi
+  # requests:
+  #  cpu: 100m
+  #  memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+persistence:
+  enabled: true
+  size: 1Gi
+  # storageClass: do-block-storage
+
+mongodb:
+  # Disable password
+  usePassword: false
+  # security options
+  security:
+    authorization: disabled
+  # Enable persistent storage
+  persistence:
+    enabled: true
+    # storageClass: do-block-storage
+    size: 1Gi

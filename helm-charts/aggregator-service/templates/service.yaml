@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "aggregator-service.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "aggregator-service.name" . }}
+    helm.sh/chart: {{ include "aggregator-service.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: {{ include "aggregator-service.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
