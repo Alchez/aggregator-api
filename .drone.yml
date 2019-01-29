@@ -99,6 +99,34 @@ steps:
     branch:
       - master
 
+- name: build-docs
+  group: docs
+  image: node:latest
+  commands:
+  - npm install gitbook-cli lerna -g
+  - npm install
+  - lerna clean -y
+  - lerna bootstrap
+  - rm -fr public
+  - gitbook build docs public
+  - npm run docs
+  when:
+    branch:
+      - develop
+
+- name: publish-docs
+  group: docs
+  image: plugins/gh-pages
+  settings:
+    username:
+      from_secret: github_username
+    password:
+      from_secret: github_token
+    pages_directory: public
+  when:
+    branch:
+      - develop
+
 ######################################
 # Use for local testing docker build #
 ######################################
