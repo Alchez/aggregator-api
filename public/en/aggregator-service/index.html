@@ -1,0 +1,350 @@
+
+<!DOCTYPE HTML>
+<html lang="en" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Overview · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="development.html" />
+    
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Installation
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" >
+            
+                <span>
+            
+                    
+                    Aggregator Service
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter active" data-level="1.2.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Overview
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="development.html">
+            
+                <a href="development.html">
+            
+                    
+                    Development
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" >
+            
+                <span>
+            
+                    
+                    Aggregator Console
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../aggregator-console/">
+            
+                <a href="../aggregator-console/">
+            
+                    
+                    Overview
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="development.html">
+            
+                <a href="development.html">
+            
+                    
+                    Development
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Overview</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="aggregator-service-development">Aggregator Service Development</h1>
+<h3 id="setup-backing-services">Setup Backing Services</h3>
+<h4 id="standard-setup">Standard setup</h4>
+<p>Install mongodb locally using your OS specific installation for MongoDB.</p>
+<h4 id="docker-setup">Docker setup</h4>
+<p>Run following command as docker allowed user or root to start mongodb container.</p>
+<pre><code class="lang-sh">docker run <span class="hljs-_">-d</span> --name mongo -p 27017:27017 mongo
+</code></pre>
+<p>In both setup cases start backing services before app development starts.</p>
+<h3 id="setup-environment">Setup Environment</h3>
+<p><code>.env</code> file for initializing following variables needs to be setup in project root to configure environment. This file is ignored by git.</p>
+<pre><code>DB_HOST=localhost
+DB_NAME=aggregator-service
+</code></pre><h3 id="setup-hosts-file">Setup hosts file</h3>
+<p>add <code>127.0.0.1 aggregator.localhost</code> in <code>/etc/hosts</code> file or hosts file of your operating system.</p>
+<h3 id="setup-server-with-post-request">Setup server with POST request</h3>
+<p>Add Client using Infrastructure console to obtain clientId, clientSecret. Use these credentials to setup the server. Visit <a href="https://staging-admin.castlecraft.in" target="_blank">https://staging-admin.castlecraft.in</a> if you wish to use this sandbox instead of local setup.</p>
+<p>Add following Callback URLs</p>
+<ul>
+<li><a href="http://aggregator.localhost:7100/index.html" target="_blank">http://aggregator.localhost:7100/index.html</a></li>
+<li><a href="http://aggregator.localhost:7100/silent-refresh.html" target="_blank">http://aggregator.localhost:7100/silent-refresh.html</a></li>
+</ul>
+<p>start local server</p>
+<pre><code class="lang-sh"><span class="hljs-built_in">cd</span> [git-repo-root]/packages/aggretator-service
+npm run start:server
+</code></pre>
+<p>fire the following request</p>
+<pre><code>curl -d &quot;appURL=http://aggregator.localhost:7100&quot; \
+    -d &quot;authServerURL=http://staging-accounts.localhost:3000&quot; \
+    -d &quot;clientId=6ff7dc34-2501-abcd-bf8c-31929ed0f19c&quot; \
+    -d &quot;clientSecret=05f966d683147329fbba11145482pqrs88a19a11e6702c9aec54d86e42113b36&quot; \
+    -X POST http://aggregator.localhost:7100/setup \
+    -H &quot;Content-Type: application/x-www-form-urlencoded&quot;
+</code></pre><p>Note : If a POST request with no or invalid body is sent to <code>http://aggregator.localhost:8100/setup</code> error response will specify required fields.</p>
+<p>Sample response</p>
+<pre><code>Response 201
+</code></pre><p>Login to Aggregtor console <code>http://aggregator.localhost:8100</code> to use admin UI.</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                
+                <a href="development.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Development">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Overview","level":"1.2.1","depth":2,"next":{"title":"Development","level":"1.2.2","depth":2,"path":"aggregator-service/development.md","ref":"aggregator-service/development.md","articles":[]},"previous":{"title":"Aggregator Service","level":"1.2","depth":1,"ref":"","articles":[{"title":"Overview","level":"1.2.1","depth":2,"path":"aggregator-service/README.md","ref":"aggregator-service/README.md","articles":[]},{"title":"Development","level":"1.2.2","depth":2,"path":"aggregator-service/development.md","ref":"aggregator-service/development.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":[],"root":"./manual","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"docUrl":"http://digithinkit.github.io/aggregator-api"},"language":"en","gitbook":"*"},"file":{"path":"aggregator-service/README.md","mtime":"2019-01-29T11:49:31.104Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-29T11:50:55.345Z"},"basePath":"..","book":{"language":"en"}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
