@@ -1,6 +1,6 @@
 import { IsNotEmpty } from 'class-validator';
 
-export class LogNoteDto {
+export class FireRequestDto {
   @IsNotEmpty()
   title: string;
 

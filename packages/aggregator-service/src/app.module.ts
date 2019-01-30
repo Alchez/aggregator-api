@@ -6,6 +6,7 @@ import { ModelsModule } from './models/models.module';
 import { ControllersModule } from './controllers/controllers.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigService } from './config/config.service';
+import { RequestAggregationSaga } from './sagas/request-aggregation-saga/request-aggregation-saga.service';
 
 const config = new ConfigService();
 
@@ -26,6 +27,6 @@ const config = new ConfigService();
     ),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, RequestAggregationSaga],
 })
 export class AppModule {}

@@ -1,8 +1,6 @@
 import { Injectable, HttpService } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
-import { LogNoteCommand } from '../../commands/log-note/log-note.command';
-import { retry } from 'rxjs/operators';
-import { QueueLogService } from '../../models/queue-log/queue-log.service';
+import { FireRequestCommand } from '../../commands/fire-request/fire-request.command';
 
 @Injectable()
 export class InventoryService {
@@ -19,7 +17,6 @@ export class InventoryService {
   constructor(
     private readonly commandBus: CommandBus,
     private readonly http: HttpService,
-    private readonly queueLog: QueueLogService,
   ) {}
 
   // async onModuleInit() {
@@ -37,31 +34,9 @@ export class InventoryService {
   // }
 
   async logNote(clientId, payload) {
-    return await this.commandBus.execute(new LogNoteCommand(clientId, payload));
-  }
-
-  logNoteObservable(payload) {
-    this.http
-      .get('http://localhost:9000/info')
-      .pipe(retry(3))
-      .subscribe({
-        next: async response => {
-          const queue = new (this.queueLog.getModel())();
-          queue.clientId = '420'; // take from request
-          queue.data = payload;
-          queue.response = response.data;
-          await this.queueLog.save(queue);
-          // Fire webhook;
-        },
-        error: async err => {
-          const queue = new (this.queueLog.getModel())();
-          queue.clientId = '420'; // take from request
-          queue.data = payload;
-          queue.error = err.error;
-          await this.queueLog.save(queue);
-          // Fire webhook;
-        },
-      });
-    return { message: 'Request Queued' };
+    const request = this.http.get('http://localhost:7100/info');
+    return await this.commandBus.execute(
+      new FireRequestCommand(clientId, payload, request),
+    );
   }
 }
