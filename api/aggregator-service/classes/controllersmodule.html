@@ -914,9 +914,6 @@ img { max-width: 100%; }
 					<a href="controllersmodule.html#constructor" class="tsd-kind-icon">constructor</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a href="controllersmodule.html#bloomrequestsagas" class="tsd-kind-icon">bloom<wbr>Request<wbr>Sagas</a>
-				</li>
-				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a href="controllersmodule.html#command_" class="tsd-kind-icon">command$</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
@@ -924,6 +921,9 @@ img { max-width: 100%; }
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a href="controllersmodule.html#moduleref" class="tsd-kind-icon">module<wbr>Ref</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a href="controllersmodule.html#sagas" class="tsd-kind-icon">sagas</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class">
 					<a href="controllersmodule.html#onmoduleinit" class="tsd-kind-icon">on<wbr>Module<wbr>Init</a>
@@ -961,10 +961,10 @@ img { max-width: 100%; }
 					<section class="tsd-index-section tsd-is-private tsd-is-private-protected">
 						<h3>Properties</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="controllersmodule.html#bloomrequestsagas" class="tsd-kind-icon">bloom<wbr>Request<wbr>Sagas</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="controllersmodule.html#command_" class="tsd-kind-icon">command$</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="controllersmodule.html#event_" class="tsd-kind-icon">event$</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="controllersmodule.html#moduleref" class="tsd-kind-icon">module<wbr>Ref</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="controllersmodule.html#sagas" class="tsd-kind-icon">sagas</a></li>
 						</ul>
 					</section>
 					<section class="tsd-index-section ">
@@ -982,13 +982,13 @@ img { max-width: 100%; }
 				<a name="constructor" class="tsd-anchor"></a>
 				<h3>constructor</h3>
 				<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">new <wbr>Controllers<wbr>Module<span class="tsd-signature-symbol">(</span>moduleRef<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ModuleRef</span>, command$<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">CommandBus</span>, event$<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventBus</span>, bloomRequestSagas<span class="tsd-signature-symbol">: </span><a href="bloomrequestsagas.html" class="tsd-signature-type">BloomRequestSagas</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="controllersmodule.html" class="tsd-signature-type">ControllersModule</a></li>
+					<li class="tsd-signature tsd-kind-icon">new <wbr>Controllers<wbr>Module<span class="tsd-signature-symbol">(</span>moduleRef<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ModuleRef</span>, command$<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">CommandBus</span>, event$<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventBus</span>, sagas<span class="tsd-signature-symbol">: </span><a href="requestaggregationsaga.html" class="tsd-signature-type">RequestAggregationSaga</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="controllersmodule.html" class="tsd-signature-type">ControllersModule</a></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/DigiThinkIT/aggregator-api/blob/ed41d11/packages/aggregator-service/src/controllers/controllers.module.ts#L37">controllers/controllers.module.ts:37</a></li>
+								<li>Defined in <a href="https://github.com/DigiThinkIT/aggregator-api/blob/3ff1233/packages/aggregator-service/src/controllers/controllers.module.ts#L39">controllers/controllers.module.ts:39</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1003,7 +1003,7 @@ img { max-width: 100%; }
 								<h5>event$: <span class="tsd-signature-type">EventBus</span></h5>
 							</li>
 							<li>
-								<h5>bloomRequestSagas: <a href="bloomrequestsagas.html" class="tsd-signature-type">BloomRequestSagas</a></h5>
+								<h5>sagas: <a href="requestaggregationsaga.html" class="tsd-signature-type">RequestAggregationSaga</a></h5>
 							</li>
 						</ul>
 						<h4 class="tsd-returns-title">Returns <a href="controllersmodule.html" class="tsd-signature-type">ControllersModule</a></h4>
@@ -1014,22 +1014,12 @@ img { max-width: 100%; }
 		<section class="tsd-panel-group tsd-member-group tsd-is-private tsd-is-private-protected">
 			<h2>Properties</h2>
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-				<a name="bloomrequestsagas" class="tsd-anchor"></a>
-				<h3><span class="tsd-flag ts-flagPrivate">Private</span> bloom<wbr>Request<wbr>Sagas</h3>
-				<div class="tsd-signature tsd-kind-icon">bloom<wbr>Request<wbr>Sagas<span class="tsd-signature-symbol">:</span> <a href="bloomrequestsagas.html" class="tsd-signature-type">BloomRequestSagas</a></div>
-				<aside class="tsd-sources">
-					<ul>
-						<li>Defined in <a href="https://github.com/DigiThinkIT/aggregator-api/blob/ed41d11/packages/aggregator-service/src/controllers/controllers.module.ts#L42">controllers/controllers.module.ts:42</a></li>
-					</ul>
-				</aside>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 				<a name="command_" class="tsd-anchor"></a>
 				<h3><span class="tsd-flag ts-flagPrivate">Private</span> command$</h3>
 				<div class="tsd-signature tsd-kind-icon">command$<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">CommandBus</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/DigiThinkIT/aggregator-api/blob/ed41d11/packages/aggregator-service/src/controllers/controllers.module.ts#L40">controllers/controllers.module.ts:40</a></li>
+						<li>Defined in <a href="https://github.com/DigiThinkIT/aggregator-api/blob/3ff1233/packages/aggregator-service/src/controllers/controllers.module.ts#L42">controllers/controllers.module.ts:42</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1039,7 +1029,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">event$<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">EventBus</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/DigiThinkIT/aggregator-api/blob/ed41d11/packages/aggregator-service/src/controllers/controllers.module.ts#L41">controllers/controllers.module.ts:41</a></li>
+						<li>Defined in <a href="https://github.com/DigiThinkIT/aggregator-api/blob/3ff1233/packages/aggregator-service/src/controllers/controllers.module.ts#L43">controllers/controllers.module.ts:43</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1049,7 +1039,17 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">module<wbr>Ref<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">ModuleRef</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/DigiThinkIT/aggregator-api/blob/ed41d11/packages/aggregator-service/src/controllers/controllers.module.ts#L39">controllers/controllers.module.ts:39</a></li>
+						<li>Defined in <a href="https://github.com/DigiThinkIT/aggregator-api/blob/3ff1233/packages/aggregator-service/src/controllers/controllers.module.ts#L41">controllers/controllers.module.ts:41</a></li>
+					</ul>
+				</aside>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+				<a name="sagas" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagPrivate">Private</span> sagas</h3>
+				<div class="tsd-signature tsd-kind-icon">sagas<span class="tsd-signature-symbol">:</span> <a href="requestaggregationsaga.html" class="tsd-signature-type">RequestAggregationSaga</a></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/DigiThinkIT/aggregator-api/blob/3ff1233/packages/aggregator-service/src/controllers/controllers.module.ts#L44">controllers/controllers.module.ts:44</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1066,7 +1066,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/DigiThinkIT/aggregator-api/blob/ed41d11/packages/aggregator-service/src/controllers/controllers.module.ts#L45">controllers/controllers.module.ts:45</a></li>
+								<li>Defined in <a href="https://github.com/DigiThinkIT/aggregator-api/blob/3ff1233/packages/aggregator-service/src/controllers/controllers.module.ts#L47">controllers/controllers.module.ts:47</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>

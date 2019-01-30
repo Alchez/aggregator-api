@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>LogNoteDto | Aggregator Server</title>
+	<title>FireRequestCommand | Aggregator Server</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<style type="text/css">/*! normalize.css v1.1.3 | MIT License | git.io/normalize */
@@ -908,13 +908,19 @@ img { max-width: 100%; }
 <nav class="tsd-navigation secondary">
 	<ul>
 		<li class="current tsd-kind-class">
-			<a href="lognotedto.html" class="tsd-kind-icon">Log<wbr>Note<wbr>Dto</a>
+			<a href="firerequestcommand.html" class="tsd-kind-icon">Fire<wbr>Request<wbr>Command</a>
 			<ul>
-				<li class=" tsd-kind-property tsd-parent-kind-class">
-					<a href="lognotedto.html#content" class="tsd-kind-icon">content</a>
+				<li class=" tsd-kind-constructor tsd-parent-kind-class">
+					<a href="firerequestcommand.html#constructor" class="tsd-kind-icon">constructor</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-class">
-					<a href="lognotedto.html#title" class="tsd-kind-icon">title</a>
+					<a href="firerequestcommand.html#body" class="tsd-kind-icon">body</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class">
+					<a href="firerequestcommand.html#clientid" class="tsd-kind-icon">client<wbr>Id</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class">
+					<a href="firerequestcommand.html#request" class="tsd-kind-icon">request</a>
 				</li>
 			</ul>
 		</li>
@@ -926,8 +932,14 @@ img { max-width: 100%; }
 			<h3>Hierarchy</h3>
 			<ul class="tsd-hierarchy">
 				<li>
-					<span class="target">LogNoteDto</span>
+					<span class="target">FireRequestCommand</span>
 				</li>
+			</ul>
+		</section>
+		<section class="tsd-panel">
+			<h3>Implements</h3>
+			<ul class="tsd-hierarchy">
+				<li><span class="tsd-signature-type">ICommand</span></li>
 			</ul>
 		</section>
 		<section class="tsd-panel-group tsd-index-group">
@@ -935,34 +947,83 @@ img { max-width: 100%; }
 			<section class="tsd-panel tsd-index-panel">
 				<div class="tsd-index-content">
 					<section class="tsd-index-section ">
+						<h3>Constructors</h3>
+						<ul class="tsd-index-list">
+							<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="firerequestcommand.html#constructor" class="tsd-kind-icon">constructor</a></li>
+						</ul>
+					</section>
+					<section class="tsd-index-section ">
 						<h3>Properties</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-property tsd-parent-kind-class"><a href="lognotedto.html#content" class="tsd-kind-icon">content</a></li>
-							<li class="tsd-kind-property tsd-parent-kind-class"><a href="lognotedto.html#title" class="tsd-kind-icon">title</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class"><a href="firerequestcommand.html#body" class="tsd-kind-icon">body</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class"><a href="firerequestcommand.html#clientid" class="tsd-kind-icon">client<wbr>Id</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class"><a href="firerequestcommand.html#request" class="tsd-kind-icon">request</a></li>
 						</ul>
 					</section>
 				</div>
 			</section>
 		</section>
 		<section class="tsd-panel-group tsd-member-group ">
+			<h2>Constructors</h2>
+			<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class">
+				<a name="constructor" class="tsd-anchor"></a>
+				<h3>constructor</h3>
+				<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">new <wbr>Fire<wbr>Request<wbr>Command<span class="tsd-signature-symbol">(</span>clientId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, body<span class="tsd-signature-symbol">: </span><a href="firerequestdto.html" class="tsd-signature-type">FireRequestDto</a>, request<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Observable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">AxiosResponse</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="firerequestcommand.html" class="tsd-signature-type">FireRequestCommand</a></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/DigiThinkIT/aggregator-api/blob/3ff1233/packages/aggregator-service/src/commands/fire-request/fire-request.command.ts#L6">commands/fire-request/fire-request.command.ts:6</a></li>
+							</ul>
+						</aside>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>clientId: <span class="tsd-signature-type">string</span></h5>
+							</li>
+							<li>
+								<h5>body: <a href="firerequestdto.html" class="tsd-signature-type">FireRequestDto</a></h5>
+							</li>
+							<li>
+								<h5>request: <span class="tsd-signature-type">Observable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">AxiosResponse</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <a href="firerequestcommand.html" class="tsd-signature-type">FireRequestCommand</a></h4>
+					</li>
+				</ul>
+			</section>
+		</section>
+		<section class="tsd-panel-group tsd-member-group ">
 			<h2>Properties</h2>
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-				<a name="content" class="tsd-anchor"></a>
-				<h3>content</h3>
-				<div class="tsd-signature tsd-kind-icon">content<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+				<a name="body" class="tsd-anchor"></a>
+				<h3>body</h3>
+				<div class="tsd-signature tsd-kind-icon">body<span class="tsd-signature-symbol">:</span> <a href="firerequestdto.html" class="tsd-signature-type">FireRequestDto</a></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/DigiThinkIT/aggregator-api/blob/ed41d11/packages/aggregator-service/src/controllers/inventory/inventory-dtos/log-note.dto.ts#L8">controllers/inventory/inventory-dtos/log-note.dto.ts:8</a></li>
+						<li>Defined in <a href="https://github.com/DigiThinkIT/aggregator-api/blob/3ff1233/packages/aggregator-service/src/commands/fire-request/fire-request.command.ts#L9">commands/fire-request/fire-request.command.ts:9</a></li>
 					</ul>
 				</aside>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-				<a name="title" class="tsd-anchor"></a>
-				<h3>title</h3>
-				<div class="tsd-signature tsd-kind-icon">title<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+				<a name="clientid" class="tsd-anchor"></a>
+				<h3>client<wbr>Id</h3>
+				<div class="tsd-signature tsd-kind-icon">client<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/DigiThinkIT/aggregator-api/blob/ed41d11/packages/aggregator-service/src/controllers/inventory/inventory-dtos/log-note.dto.ts#L5">controllers/inventory/inventory-dtos/log-note.dto.ts:5</a></li>
+						<li>Defined in <a href="https://github.com/DigiThinkIT/aggregator-api/blob/3ff1233/packages/aggregator-service/src/commands/fire-request/fire-request.command.ts#L8">commands/fire-request/fire-request.command.ts:8</a></li>
+					</ul>
+				</aside>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+				<a name="request" class="tsd-anchor"></a>
+				<h3>request</h3>
+				<div class="tsd-signature tsd-kind-icon">request<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Observable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">AxiosResponse</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/DigiThinkIT/aggregator-api/blob/3ff1233/packages/aggregator-service/src/commands/fire-request/fire-request.command.ts#L10">commands/fire-request/fire-request.command.ts:10</a></li>
 					</ul>
 				</aside>
 			</section>
