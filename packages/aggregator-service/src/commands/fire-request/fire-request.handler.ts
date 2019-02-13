@@ -1,7 +1,7 @@
 import { CommandHandler, ICommandHandler, EventPublisher } from '@nestjs/cqrs';
 import { FireRequestCommand } from './fire-request.command';
 import { QueueLogService } from '../../models/queue-log/queue-log.service';
-import { ForbiddenException } from '@nestjs/common';
+import { ForbiddenException, HttpService } from '@nestjs/common';
 import { retry, switchMap, catchError, map } from 'rxjs/operators';
 import { from, throwError } from 'rxjs';
 import { RegisteredClientService } from '../../models/registered-client/registered-client.service';
@@ -12,10 +12,11 @@ export class FireRequestHandler implements ICommandHandler<FireRequestCommand> {
     private readonly queueLog: QueueLogService,
     private readonly registeredClientService: RegisteredClientService,
     private readonly publisher: EventPublisher,
+    private readonly http: HttpService,
   ) {}
 
   async execute(commandData: FireRequestCommand, resolve: (value?) => void) {
-    const { clientId, body, request } = commandData;
+    const { clientId, body, endpoint, userKey, licenseNumber } = commandData;
     const queueData = new (this.queueLog.getModel())();
     queueData.clientId = clientId;
     queueData.data = body;
@@ -37,14 +38,21 @@ export class FireRequestHandler implements ICommandHandler<FireRequestCommand> {
               new ForbiddenException('Client Access Forbidden'),
             );
           }
-          return request;
+          const VENDOR_KEY = '420BLAZEIT';
+          return this.http.post(endpoint, [body], {
+            auth: {
+              username: VENDOR_KEY,
+              password: userKey,
+            },
+            params: { licenseNumber },
+          });
         }),
         switchMap(response => {
           return this.saveResponseToLog(queueId, response.data, queueAggregate);
         }),
-        catchError(error =>
-          this.saveErrorToLog(queueId, error, queueAggregate),
-        ),
+        catchError(error => {
+          return this.saveErrorToLog(queueId, error, queueAggregate);
+        }),
       )
       .subscribe({
         next: async resolvedQueue => {

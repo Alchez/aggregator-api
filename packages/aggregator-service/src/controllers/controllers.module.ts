@@ -1,8 +1,6 @@
 import { Module, HttpModule, OnModuleInit } from '@nestjs/common';
 import { SetupService } from './setup/setup.service';
 import { SetupController } from './setup/setup.controller';
-import { InventoryController } from './inventory/inventory.controller';
-import { InventoryService } from './inventory/inventory.service';
 import { CQRSModule, CommandBus, EventBus } from '@nestjs/cqrs';
 import { ClientRequestFiredEventHandler } from '../events/client-request-fired/client-request-fired.handler';
 import { ModuleRef } from '@nestjs/core';
@@ -14,26 +12,28 @@ import { SettingsManagementService } from './settings/settings-management.servic
 import { RequestAggregationSaga } from '../sagas/request-aggregation-saga/request-aggregation-saga.service';
 import { FireRequestHandler } from '../commands/fire-request/fire-request.handler';
 import { NotifyClientHandler } from '../commands/notify-client/notify-client.handler';
+import { ItemController } from './item/item.controller';
+import { ItemService } from './item/item.service';
 
 @Module({
   imports: [HttpModule, CQRSModule],
-  exports: [SetupService, InventoryService],
+  exports: [SetupService],
   controllers: [
     SetupController,
-    InventoryController,
     ClientRegistrationController,
     RegisteredClientController,
     SettingsController,
+    ItemController,
   ],
   providers: [
     SetupService,
-    InventoryService,
     FireRequestHandler,
     NotifyClientHandler,
     ClientRequestFiredEventHandler,
     RequestAggregationSaga,
     ClientRegistrationService,
     SettingsManagementService,
+    ItemService,
   ],
 })
 export class ControllersModule implements OnModuleInit {

@@ -68,3 +68,7 @@ public/
 dist/
 
 ormconfig.json
+
+# Python
+
+*.pyc
