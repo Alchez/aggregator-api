@@ -914,6 +914,9 @@ img { max-width: 100%; }
 					<a href="firerequesthandler.html#constructor" class="tsd-kind-icon">constructor</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a href="firerequesthandler.html#http" class="tsd-kind-icon">http</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a href="firerequesthandler.html#publisher" class="tsd-kind-icon">publisher</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
@@ -964,6 +967,7 @@ img { max-width: 100%; }
 					<section class="tsd-index-section tsd-is-private tsd-is-private-protected">
 						<h3>Properties</h3>
 						<ul class="tsd-index-list">
+							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="firerequesthandler.html#http" class="tsd-kind-icon">http</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="firerequesthandler.html#publisher" class="tsd-kind-icon">publisher</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="firerequesthandler.html#queuelog" class="tsd-kind-icon">queue<wbr>Log</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="firerequesthandler.html#registeredclientservice" class="tsd-kind-icon">registered<wbr>Client<wbr>Service</a></li>
@@ -986,13 +990,13 @@ img { max-width: 100%; }
 				<a name="constructor" class="tsd-anchor"></a>
 				<h3>constructor</h3>
 				<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">new <wbr>Fire<wbr>Request<wbr>Handler<span class="tsd-signature-symbol">(</span>queueLog<span class="tsd-signature-symbol">: </span><a href="queuelogservice.html" class="tsd-signature-type">QueueLogService</a>, registeredClientService<span class="tsd-signature-symbol">: </span><a href="registeredclientservice.html" class="tsd-signature-type">RegisteredClientService</a>, publisher<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventPublisher</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="firerequesthandler.html" class="tsd-signature-type">FireRequestHandler</a></li>
+					<li class="tsd-signature tsd-kind-icon">new <wbr>Fire<wbr>Request<wbr>Handler<span class="tsd-signature-symbol">(</span>queueLog<span class="tsd-signature-symbol">: </span><a href="queuelogservice.html" class="tsd-signature-type">QueueLogService</a>, registeredClientService<span class="tsd-signature-symbol">: </span><a href="registeredclientservice.html" class="tsd-signature-type">RegisteredClientService</a>, publisher<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventPublisher</span>, http<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">HttpService</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="firerequesthandler.html" class="tsd-signature-type">FireRequestHandler</a></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/DigiThinkIT/aggregator-api/blob/3ff1233/packages/aggregator-service/src/commands/fire-request/fire-request.handler.ts#L10">commands/fire-request/fire-request.handler.ts:10</a></li>
+								<li>Defined in <a href="https://github.com/DigiThinkIT/aggregator-api/blob/6a693de/packages/aggregator-service/src/commands/fire-request/fire-request.handler.ts#L10">commands/fire-request/fire-request.handler.ts:10</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1006,6 +1010,9 @@ img { max-width: 100%; }
 							<li>
 								<h5>publisher: <span class="tsd-signature-type">EventPublisher</span></h5>
 							</li>
+							<li>
+								<h5>http: <span class="tsd-signature-type">HttpService</span></h5>
+							</li>
 						</ul>
 						<h4 class="tsd-returns-title">Returns <a href="firerequesthandler.html" class="tsd-signature-type">FireRequestHandler</a></h4>
 					</li>
@@ -1015,12 +1022,22 @@ img { max-width: 100%; }
 		<section class="tsd-panel-group tsd-member-group tsd-is-private tsd-is-private-protected">
 			<h2>Properties</h2>
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+				<a name="http" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagPrivate">Private</span> http</h3>
+				<div class="tsd-signature tsd-kind-icon">http<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">HttpService</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/DigiThinkIT/aggregator-api/blob/6a693de/packages/aggregator-service/src/commands/fire-request/fire-request.handler.ts#L15">commands/fire-request/fire-request.handler.ts:15</a></li>
+					</ul>
+				</aside>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 				<a name="publisher" class="tsd-anchor"></a>
 				<h3><span class="tsd-flag ts-flagPrivate">Private</span> publisher</h3>
 				<div class="tsd-signature tsd-kind-icon">publisher<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">EventPublisher</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/DigiThinkIT/aggregator-api/blob/3ff1233/packages/aggregator-service/src/commands/fire-request/fire-request.handler.ts#L14">commands/fire-request/fire-request.handler.ts:14</a></li>
+						<li>Defined in <a href="https://github.com/DigiThinkIT/aggregator-api/blob/6a693de/packages/aggregator-service/src/commands/fire-request/fire-request.handler.ts#L14">commands/fire-request/fire-request.handler.ts:14</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1030,7 +1047,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">queue<wbr>Log<span class="tsd-signature-symbol">:</span> <a href="queuelogservice.html" class="tsd-signature-type">QueueLogService</a></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/DigiThinkIT/aggregator-api/blob/3ff1233/packages/aggregator-service/src/commands/fire-request/fire-request.handler.ts#L12">commands/fire-request/fire-request.handler.ts:12</a></li>
+						<li>Defined in <a href="https://github.com/DigiThinkIT/aggregator-api/blob/6a693de/packages/aggregator-service/src/commands/fire-request/fire-request.handler.ts#L12">commands/fire-request/fire-request.handler.ts:12</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1040,7 +1057,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">registered<wbr>Client<wbr>Service<span class="tsd-signature-symbol">:</span> <a href="registeredclientservice.html" class="tsd-signature-type">RegisteredClientService</a></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/DigiThinkIT/aggregator-api/blob/3ff1233/packages/aggregator-service/src/commands/fire-request/fire-request.handler.ts#L13">commands/fire-request/fire-request.handler.ts:13</a></li>
+						<li>Defined in <a href="https://github.com/DigiThinkIT/aggregator-api/blob/6a693de/packages/aggregator-service/src/commands/fire-request/fire-request.handler.ts#L13">commands/fire-request/fire-request.handler.ts:13</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1057,7 +1074,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/DigiThinkIT/aggregator-api/blob/3ff1233/packages/aggregator-service/src/commands/fire-request/fire-request.handler.ts#L17">commands/fire-request/fire-request.handler.ts:17</a></li>
+								<li>Defined in <a href="https://github.com/DigiThinkIT/aggregator-api/blob/6a693de/packages/aggregator-service/src/commands/fire-request/fire-request.handler.ts#L18">commands/fire-request/fire-request.handler.ts:18</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1101,7 +1118,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/DigiThinkIT/aggregator-api/blob/3ff1233/packages/aggregator-service/src/commands/fire-request/fire-request.handler.ts#L72">commands/fire-request/fire-request.handler.ts:72</a></li>
+								<li>Defined in <a href="https://github.com/DigiThinkIT/aggregator-api/blob/6a693de/packages/aggregator-service/src/commands/fire-request/fire-request.handler.ts#L80">commands/fire-request/fire-request.handler.ts:80</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1130,7 +1147,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/DigiThinkIT/aggregator-api/blob/3ff1233/packages/aggregator-service/src/commands/fire-request/fire-request.handler.ts#L59">commands/fire-request/fire-request.handler.ts:59</a></li>
+								<li>Defined in <a href="https://github.com/DigiThinkIT/aggregator-api/blob/6a693de/packages/aggregator-service/src/commands/fire-request/fire-request.handler.ts#L67">commands/fire-request/fire-request.handler.ts:67</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>

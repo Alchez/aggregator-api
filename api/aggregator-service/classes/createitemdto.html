@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>InventoryService | Aggregator Server</title>
+	<title>CreateItemDto | Aggregator Server</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<style type="text/css">/*! normalize.css v1.1.3 | MIT License | git.io/normalize */
@@ -908,19 +908,25 @@ img { max-width: 100%; }
 <nav class="tsd-navigation secondary">
 	<ul>
 		<li class="current tsd-kind-class">
-			<a href="inventoryservice.html" class="tsd-kind-icon">Inventory<wbr>Service</a>
+			<a href="createitemdto.html" class="tsd-kind-icon">Create<wbr>Item<wbr>Dto</a>
 			<ul>
-				<li class=" tsd-kind-constructor tsd-parent-kind-class">
-					<a href="inventoryservice.html#constructor" class="tsd-kind-icon">constructor</a>
+				<li class=" tsd-kind-property tsd-parent-kind-class">
+					<a href="createitemdto.html#itemcategory" class="tsd-kind-icon">item<wbr>Category</a>
 				</li>
-				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a href="inventoryservice.html#commandbus" class="tsd-kind-icon">command<wbr>Bus</a>
+				<li class=" tsd-kind-property tsd-parent-kind-class">
+					<a href="createitemdto.html#itemname" class="tsd-kind-icon">item<wbr>Name</a>
 				</li>
-				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a href="inventoryservice.html#http" class="tsd-kind-icon">http</a>
+				<li class=" tsd-kind-property tsd-parent-kind-class">
+					<a href="createitemdto.html#licensenumber" class="tsd-kind-icon">license<wbr>Number</a>
 				</li>
-				<li class=" tsd-kind-method tsd-parent-kind-class">
-					<a href="inventoryservice.html#lognote" class="tsd-kind-icon">log<wbr>Note</a>
+				<li class=" tsd-kind-property tsd-parent-kind-class">
+					<a href="createitemdto.html#strain" class="tsd-kind-icon">strain</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class">
+					<a href="createitemdto.html#unitofmeasure" class="tsd-kind-icon">unit<wbr>OfMeasure</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class">
+					<a href="createitemdto.html#userkey" class="tsd-kind-icon">user<wbr>Key</a>
 				</li>
 			</ul>
 		</li>
@@ -932,7 +938,7 @@ img { max-width: 100%; }
 			<h3>Hierarchy</h3>
 			<ul class="tsd-hierarchy">
 				<li>
-					<span class="target">InventoryService</span>
+					<span class="target">CreateItemDto</span>
 				</li>
 			</ul>
 		</section>
@@ -941,106 +947,80 @@ img { max-width: 100%; }
 			<section class="tsd-panel tsd-index-panel">
 				<div class="tsd-index-content">
 					<section class="tsd-index-section ">
-						<h3>Constructors</h3>
-						<ul class="tsd-index-list">
-							<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="inventoryservice.html#constructor" class="tsd-kind-icon">constructor</a></li>
-						</ul>
-					</section>
-					<section class="tsd-index-section tsd-is-private tsd-is-private-protected">
 						<h3>Properties</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="inventoryservice.html#commandbus" class="tsd-kind-icon">command<wbr>Bus</a></li>
-							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="inventoryservice.html#http" class="tsd-kind-icon">http</a></li>
-						</ul>
-					</section>
-					<section class="tsd-index-section ">
-						<h3>Methods</h3>
-						<ul class="tsd-index-list">
-							<li class="tsd-kind-method tsd-parent-kind-class"><a href="inventoryservice.html#lognote" class="tsd-kind-icon">log<wbr>Note</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class"><a href="createitemdto.html#itemcategory" class="tsd-kind-icon">item<wbr>Category</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class"><a href="createitemdto.html#itemname" class="tsd-kind-icon">item<wbr>Name</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class"><a href="createitemdto.html#licensenumber" class="tsd-kind-icon">license<wbr>Number</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class"><a href="createitemdto.html#strain" class="tsd-kind-icon">strain</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class"><a href="createitemdto.html#unitofmeasure" class="tsd-kind-icon">unit<wbr>OfMeasure</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class"><a href="createitemdto.html#userkey" class="tsd-kind-icon">user<wbr>Key</a></li>
 						</ul>
 					</section>
 				</div>
 			</section>
 		</section>
 		<section class="tsd-panel-group tsd-member-group ">
-			<h2>Constructors</h2>
-			<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class">
-				<a name="constructor" class="tsd-anchor"></a>
-				<h3>constructor</h3>
-				<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">new <wbr>Inventory<wbr>Service<span class="tsd-signature-symbol">(</span>commandBus<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">CommandBus</span>, http<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">HttpService</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="inventoryservice.html" class="tsd-signature-type">InventoryService</a></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/DigiThinkIT/aggregator-api/blob/3ff1233/packages/aggregator-service/src/controllers/inventory/inventory.service.ts#L6">controllers/inventory/inventory.service.ts:6</a></li>
-							</ul>
-						</aside>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5>commandBus: <span class="tsd-signature-type">CommandBus</span></h5>
-							</li>
-							<li>
-								<h5>http: <span class="tsd-signature-type">HttpService</span></h5>
-							</li>
-						</ul>
-						<h4 class="tsd-returns-title">Returns <a href="inventoryservice.html" class="tsd-signature-type">InventoryService</a></h4>
-					</li>
-				</ul>
-			</section>
-		</section>
-		<section class="tsd-panel-group tsd-member-group tsd-is-private tsd-is-private-protected">
 			<h2>Properties</h2>
-			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-				<a name="commandbus" class="tsd-anchor"></a>
-				<h3><span class="tsd-flag ts-flagPrivate">Private</span> command<wbr>Bus</h3>
-				<div class="tsd-signature tsd-kind-icon">command<wbr>Bus<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">CommandBus</span></div>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+				<a name="itemcategory" class="tsd-anchor"></a>
+				<h3>item<wbr>Category</h3>
+				<div class="tsd-signature tsd-kind-icon">item<wbr>Category<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/DigiThinkIT/aggregator-api/blob/3ff1233/packages/aggregator-service/src/controllers/inventory/inventory.service.ts#L18">controllers/inventory/inventory.service.ts:18</a></li>
+						<li>Defined in <a href="https://github.com/DigiThinkIT/aggregator-api/blob/6a693de/packages/aggregator-service/src/controllers/item/dto/create-item.dto.ts#L8">controllers/item/dto/create-item.dto.ts:8</a></li>
 					</ul>
 				</aside>
 			</section>
-			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-				<a name="http" class="tsd-anchor"></a>
-				<h3><span class="tsd-flag ts-flagPrivate">Private</span> http</h3>
-				<div class="tsd-signature tsd-kind-icon">http<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">HttpService</span></div>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+				<a name="itemname" class="tsd-anchor"></a>
+				<h3>item<wbr>Name</h3>
+				<div class="tsd-signature tsd-kind-icon">item<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/DigiThinkIT/aggregator-api/blob/3ff1233/packages/aggregator-service/src/controllers/inventory/inventory.service.ts#L19">controllers/inventory/inventory.service.ts:19</a></li>
+						<li>Defined in <a href="https://github.com/DigiThinkIT/aggregator-api/blob/6a693de/packages/aggregator-service/src/controllers/item/dto/create-item.dto.ts#L5">controllers/item/dto/create-item.dto.ts:5</a></li>
 					</ul>
 				</aside>
 			</section>
-		</section>
-		<section class="tsd-panel-group tsd-member-group ">
-			<h2>Methods</h2>
-			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-				<a name="lognote" class="tsd-anchor"></a>
-				<h3>log<wbr>Note</h3>
-				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">log<wbr>Note<span class="tsd-signature-symbol">(</span>clientId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, payload<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/DigiThinkIT/aggregator-api/blob/3ff1233/packages/aggregator-service/src/controllers/inventory/inventory.service.ts#L36">controllers/inventory/inventory.service.ts:36</a></li>
-							</ul>
-						</aside>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5>clientId: <span class="tsd-signature-type">any</span></h5>
-							</li>
-							<li>
-								<h5>payload: <span class="tsd-signature-type">any</span></h5>
-							</li>
-						</ul>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
-					</li>
-				</ul>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+				<a name="licensenumber" class="tsd-anchor"></a>
+				<h3>license<wbr>Number</h3>
+				<div class="tsd-signature tsd-kind-icon">license<wbr>Number<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/DigiThinkIT/aggregator-api/blob/6a693de/packages/aggregator-service/src/controllers/item/dto/create-item.dto.ts#L20">controllers/item/dto/create-item.dto.ts:20</a></li>
+					</ul>
+				</aside>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+				<a name="strain" class="tsd-anchor"></a>
+				<h3>strain</h3>
+				<div class="tsd-signature tsd-kind-icon">strain<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/DigiThinkIT/aggregator-api/blob/6a693de/packages/aggregator-service/src/controllers/item/dto/create-item.dto.ts#L14">controllers/item/dto/create-item.dto.ts:14</a></li>
+					</ul>
+				</aside>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+				<a name="unitofmeasure" class="tsd-anchor"></a>
+				<h3>unit<wbr>OfMeasure</h3>
+				<div class="tsd-signature tsd-kind-icon">unit<wbr>OfMeasure<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/DigiThinkIT/aggregator-api/blob/6a693de/packages/aggregator-service/src/controllers/item/dto/create-item.dto.ts#L11">controllers/item/dto/create-item.dto.ts:11</a></li>
+					</ul>
+				</aside>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+				<a name="userkey" class="tsd-anchor"></a>
+				<h3>user<wbr>Key</h3>
+				<div class="tsd-signature tsd-kind-icon">user<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/DigiThinkIT/aggregator-api/blob/6a693de/packages/aggregator-service/src/controllers/item/dto/create-item.dto.ts#L17">controllers/item/dto/create-item.dto.ts:17</a></li>
+					</ul>
+				</aside>
 			</section>
 		</section>
 		<footer class="with-border-bottom">
