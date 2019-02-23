@@ -72,3 +72,8 @@ ormconfig.json
 # Python
 
 *.pyc
+
+
+# VSCode 
+
+.vscode

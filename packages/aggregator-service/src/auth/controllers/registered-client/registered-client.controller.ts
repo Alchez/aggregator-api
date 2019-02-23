@@ -61,6 +61,8 @@ export class RegisteredClientController {
     return from(this.registeredService.findOne({ clientId })).pipe(
       switchMap(registeredClient => {
         registeredClient.webhookURL = payload.webhookURL;
+        registeredClient.userKey = payload.userKey;
+        registeredClient.licenseNumber = payload.licenseNumber;
         return from(registeredClient.save());
       }),
     );

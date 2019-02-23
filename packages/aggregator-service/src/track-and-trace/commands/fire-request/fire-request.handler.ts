@@ -1,7 +1,7 @@
 import { CommandHandler, ICommandHandler, EventPublisher } from '@nestjs/cqrs';
 import { FireRequestCommand } from './fire-request.command';
 import { ForbiddenException, HttpService } from '@nestjs/common';
-import { retry, switchMap, catchError, map } from 'rxjs/operators';
+import { switchMap, catchError, map } from 'rxjs/operators';
 import { from, throwError } from 'rxjs';
 import { QueueLogService } from '../../../track-and-trace/entities/queue-log/queue-log.service';
 import { RegisteredClientService } from '../../../auth/entities/registered-client/registered-client.service';
@@ -18,7 +18,7 @@ export class FireRequestHandler implements ICommandHandler<FireRequestCommand> {
   ) {}
 
   async execute(commandData: FireRequestCommand, resolve: (value?) => void) {
-    const { clientId, body, endpoint, userKey, licenseNumber } = commandData;
+    const { clientId, body, endpoint } = commandData;
     const queueData = new (this.queueLog.getModel())();
     queueData.clientId = clientId;
     queueData.data = body;
@@ -33,7 +33,6 @@ export class FireRequestHandler implements ICommandHandler<FireRequestCommand> {
 
     from(this.registeredClientService.findOne({ clientId }))
       .pipe(
-        retry(3),
         switchMap(foundClient => {
           if (!foundClient) {
             return throwError(
@@ -44,9 +43,9 @@ export class FireRequestHandler implements ICommandHandler<FireRequestCommand> {
           return this.http.post(endpoint, [body], {
             auth: {
               username: VENDOR_KEY,
-              password: userKey,
+              password: foundClient.userKey,
             },
-            params: { licenseNumber },
+            params: { licenseNumber : foundClient.licenseNumber },
           });
         }),
         switchMap(response => {

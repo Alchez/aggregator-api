@@ -12,10 +12,4 @@ export class CreateItemDto {
 
   @IsString()
   strain: string;
-
-  @IsString()
-  userKey: string;
-
-  @IsString()
-  licenseNumber: string;
 }
