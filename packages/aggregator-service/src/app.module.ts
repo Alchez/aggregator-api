@@ -2,11 +2,12 @@ import { Module, HttpModule } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from './config/config.module';
-import { ModelsModule } from './models/models.module';
-import { ControllersModule } from './controllers/controllers.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigService } from './config/config.service';
-import { RequestAggregationSaga } from './sagas/request-aggregation-saga/request-aggregation-saga.service';
+import { AuthModule } from './auth/auth.module';
+import { TrackAndTraceModule } from './track-and-trace/track-and-trace.module';
+import { CommonModule } from './common/common.module';
+import { SystemSettingsModule } from './system-settings/system-settings.module';
 
 const config = new ConfigService();
 
@@ -14,9 +15,6 @@ const config = new ConfigService();
   imports: [
     ConfigModule,
     HttpModule,
-    ModelsModule,
-    ControllersModule,
-    // QueuesModule, // For RabbitMQ
     MongooseModule.forRoot(
       `mongodb://${config.get('DB_HOST')}/${config.get('DB_NAME')}`,
       {
@@ -25,8 +23,12 @@ const config = new ConfigService();
         useCreateIndex: true,
       },
     ),
+    AuthModule,
+    TrackAndTraceModule,
+    CommonModule,
+    SystemSettingsModule,
   ],
   controllers: [AppController],
-  providers: [AppService, RequestAggregationSaga],
+  providers: [AppService],
 })
 export class AppModule {}
