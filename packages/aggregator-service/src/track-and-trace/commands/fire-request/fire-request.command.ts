@@ -5,7 +5,5 @@ export class FireRequestCommand implements ICommand {
     public readonly clientId: string,
     public readonly endpoint: string,
     public readonly body: any,
-    public readonly userKey: string,
-    public readonly licenseNumber: string,
   ) {}
 }

@@ -33,6 +33,8 @@ export class ClientRegistrationController {
     return this.clientRegistrationService.registerClient(
       clientId,
       payload.webhookURL,
+      payload.userKey,
+      payload.licenseNumber,
       req.token.accessToken,
     );
   }

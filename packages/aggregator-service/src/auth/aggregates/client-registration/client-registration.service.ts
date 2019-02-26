@@ -12,7 +12,13 @@ export class ClientRegistrationService {
     private readonly registeredCLientService: RegisteredClientService,
   ) {}
 
-  registerClient(clientId: string, webhookURL: string, accessToken: string) {
+  registerClient(
+    clientId: string,
+    webhookURL: string,
+    userKey: string,
+    licenseNumber: string,
+    accessToken: string,
+  ) {
     return from(this.settingsService.getServerSettings()).pipe(
       switchMap(settings => {
         return this.http.get(
@@ -34,6 +40,8 @@ export class ClientRegistrationService {
           newClient.clientId = response.data.clientId;
           newClient.clientSecret = response.data.clientSecret;
           newClient.webhookURL = webhookURL;
+          newClient.userKey = userKey;
+          newClient.licenseNumber = licenseNumber;
           newClient.clientId = response.data.clientId;
           return from(this.registeredCLientService.save(newClient));
         } else if (response.data.clientId === client.clientId) {
