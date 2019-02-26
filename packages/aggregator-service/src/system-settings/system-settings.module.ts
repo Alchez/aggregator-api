@@ -13,10 +13,7 @@ import { SystemSettingsAggregates } from './aggregates';
     ...SystemSettingsAggregates,
     SettingsService,
   ],
-  exports: [
-    ...SystemSettingsControllers,
-    ...SystemSettingsAggregates,
-    SettingsService,
-  ],
+  controllers: [...SystemSettingsControllers],
+  exports: [...SystemSettingsAggregates, SettingsService],
 })
 export class SystemSettingsModule {}
