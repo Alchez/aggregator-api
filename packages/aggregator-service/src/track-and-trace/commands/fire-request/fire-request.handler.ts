@@ -45,7 +45,7 @@ export class FireRequestHandler implements ICommandHandler<FireRequestCommand> {
               username: VENDOR_KEY,
               password: foundClient.userKey,
             },
-            params: { licenseNumber : foundClient.licenseNumber },
+            params: { licenseNumber: foundClient.licenseNumber },
           });
         }),
         switchMap(response => {

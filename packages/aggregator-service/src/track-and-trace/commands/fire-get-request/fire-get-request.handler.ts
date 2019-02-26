@@ -7,7 +7,8 @@ import { ConfigService } from '../../../config/config.service';
 import { FireGetRequestCommand } from './fire-get-request.command';
 
 @CommandHandler(FireGetRequestCommand)
-export class FireRequestHandler implements ICommandHandler<FireGetRequestCommand> {
+export class FireRequestHandler
+  implements ICommandHandler<FireGetRequestCommand> {
   constructor(
     private readonly registeredClientService: RegisteredClientService,
     private readonly http: HttpService,

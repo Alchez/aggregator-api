@@ -12,7 +12,13 @@ export class ClientRegistrationService {
     private readonly registeredCLientService: RegisteredClientService,
   ) {}
 
-  registerClient(clientId: string, webhookURL: string, userKey: string, licenseNumber: string, accessToken: string) {
+  registerClient(
+    clientId: string,
+    webhookURL: string,
+    userKey: string,
+    licenseNumber: string,
+    accessToken: string,
+  ) {
     return from(this.settingsService.getServerSettings()).pipe(
       switchMap(settings => {
         return this.http.get(
