@@ -4,8 +4,8 @@ import {
   ForbiddenException,
   Injectable,
 } from '@nestjs/common';
-import { AUTHORIZATION } from './../constants/app-strings';
-import { SettingsService } from '../models/settings/settings.service';
+import { AUTHORIZATION } from '../../constants/app-strings';
+import { SettingsService } from '../../system-settings/entities/settings/settings.service';
 
 @Injectable()
 export class AuthServerVerificationGuard implements CanActivate {

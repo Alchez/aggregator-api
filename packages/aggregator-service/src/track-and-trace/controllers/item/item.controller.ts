@@ -8,7 +8,6 @@ import {
   Req,
   Get,
   UseGuards,
-  ForbiddenException,
 } from '@nestjs/common';
 import { ItemService } from '../../aggregates/item/item.service';
 import { CreateItemDto } from '../../policies/data-transfer-objects/create-item.dto';
@@ -21,7 +20,6 @@ export class ItemController {
   @UsePipes(ValidationPipe)
   async createItem(@Body() payload: CreateItemDto, @Req() req) {
     const clientId = req.token.clientId;
-    if (!clientId) throw new ForbiddenException();
     return await this.itemService.createItem(clientId, payload);
   }
 
@@ -30,7 +28,6 @@ export class ItemController {
   @UsePipes(ValidationPipe)
   async getItems(@Req() req) {
     const clientId = req.token.clientId;
-    if (!clientId) throw new ForbiddenException();
     return await this.itemService.getItems(clientId);
   }
 
