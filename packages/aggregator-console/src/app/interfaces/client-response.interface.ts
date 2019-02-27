@@ -8,4 +8,7 @@ export interface CreateClientResponse {
   userDeleteEndpoint?: string;
   tokenDeleteEndpoint?: string;
   changedClientSecret?: string;
+  webhookURL?: string;
+  userKey?: string;
+  licenseNumber?: string;
 }

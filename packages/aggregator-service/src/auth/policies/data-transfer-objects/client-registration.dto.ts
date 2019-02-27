@@ -1,8 +1,7 @@
-import { IsUrl, IsOptional, IsString } from 'class-validator';
+import { IsUrl, IsString } from 'class-validator';
 
 export class ClientRegistrationDto {
   @IsUrl()
-  @IsOptional()
   webhookURL: string;
 
   @IsString()
