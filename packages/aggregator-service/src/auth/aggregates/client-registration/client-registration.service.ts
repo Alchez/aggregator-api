@@ -31,6 +31,8 @@ export class ClientRegistrationService {
           return from(this.registeredCLientService.findOne({ clientId })).pipe(
             map(client => ({ response, client })),
           );
+        } else {
+          throwError(new BadRequestException('Invalid Client'));
         }
       }),
       switchMap(repsonseClientMap => {
@@ -38,19 +40,15 @@ export class ClientRegistrationService {
         if (!client) {
           const newClient = new (this.registeredCLientService.getModel())();
           newClient.clientId = response.data.clientId;
-          newClient.clientSecret = response.data.clientSecret;
           newClient.webhookURL = webhookURL;
           newClient.userKey = userKey;
           newClient.licenseNumber = licenseNumber;
-          newClient.clientId = response.data.clientId;
           return from(this.registeredCLientService.save(newClient));
         } else if (response.data.clientId === client.clientId) {
           return of(client);
         }
       }),
-      catchError(error =>
-        throwError(new BadRequestException('Invalid Client')),
-      ),
+      catchError(error => throwError(new BadRequestException())),
     );
   }
 }
