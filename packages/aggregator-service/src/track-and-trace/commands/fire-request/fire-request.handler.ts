@@ -56,12 +56,8 @@ export class FireRequestHandler implements ICommandHandler<FireRequestCommand> {
         }),
       )
       .subscribe({
-        next: async resolvedQueue => {
-          // Callback for success
-        },
-        error: error => {
-          // Callback for error
-        },
+        next: success => {},
+        error: error => {},
       });
   }
 

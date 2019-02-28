@@ -17,6 +17,7 @@ export class ItemController {
   constructor(private readonly itemService: ItemService) {}
 
   @Post('create')
+  @UseGuards(TokenGuard)
   @UsePipes(ValidationPipe)
   async createItem(@Body() payload: CreateItemDto, @Req() req) {
     const clientId = req.token.clientId;
