@@ -5,7 +5,7 @@ import { catchError, switchMap, map } from 'rxjs/operators';
 import { RegisteredClientService } from '../../../auth/entities/registered-client/registered-client.service';
 import { ConfigService } from '../../../config/config.service';
 import { FireGetRequestCommand } from './fire-get-request.command';
-import { QueueLogService } from 'src/track-and-trace/entities/queue-log/queue-log.service';
+import { QueueLogService } from '../../../track-and-trace/entities/queue-log/queue-log.service';
 
 @CommandHandler(FireGetRequestCommand)
 export class FireGetRequestHandler
