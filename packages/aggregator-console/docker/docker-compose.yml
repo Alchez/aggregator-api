@@ -9,7 +9,7 @@ services:
       - mongo-vol:/data/db
 
   aggregator-console:
-    image: aggregator-console:latest
+    image: bloomstack/aggregator-console:edge
     ports:
       - "8100:8100"
     depends_on:

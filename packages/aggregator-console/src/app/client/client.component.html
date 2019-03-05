@@ -2,66 +2,24 @@
   <div fxLayout="column" fxLayoutGap="1em">
     <form [formGroup]="clientForm">
         <mat-card>
-          <mat-card-title>{{ clientName || "New Client" }}</mat-card-title>
+          <mat-card-title>{{ clientId }}</mat-card-title>
           <mat-card-content fxLayout="column">
             <mat-form-field>
-              <input matInput placeholder="Client Name" formControlName="clientName" required>
-              <mat-checkbox formControlName="isTrusted" matSuffix>Trusted</mat-checkbox>
+              <input matInput placeholder="Client ID" formControlName="clientId">
             </mat-form-field>
-            <mat-form-field *ngIf="clientId">
-              <input matInput placeholder="Client ID" formControlName="clientId" password readonly>
-            </mat-form-field>
-            <mat-form-field *ngIf="clientSecret">
-              <input matInput placeholder="Client Secret" formControlName="clientSecret"
-              [type]="hideClientSecret ? 'password' : 'text'" readonly>
-              <mat-icon matSuffix (click)="hideClientSecret = !hideClientSecret">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
-            </mat-form-field>
-            <mat-form-field *ngIf="changedClientSecret">
-              <input matInput placeholder="Changed Client Secret" formControlName="changedClientSecret"
-              [type]="hideChangedClientSecret ? 'password' : 'text'" readonly>
-              <mat-icon matSuffix (click)="hideChangedClientSecret = !hideChangedClientSecret">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
-            </mat-form-field>
-            <mat-form-field>
-              <mat-select placeholder="Scopes" formControlName="clientScopes" multiple>
-                <mat-option *ngFor="let scope of scopes" [value]="scope">{{scope}}</mat-option>
-              </mat-select>
-            </mat-form-field>
-            <mat-form-field>
-              <input matInput placeholder="Token Delete Endoint" formControlName="tokenDeleteEndpoint">
-            </mat-form-field>
-            <mat-form-field>
-              <input matInput placeholder="User Delete Endpoint" formControlName="userDeleteEndpoint">
-            </mat-form-field>
-            <div formArrayName="callbackURLForms" *ngFor="let url of clientForm.get('callbackURLForms')['controls']; let i = index;" style="width:100%">
-              <div [formGroupName]="i">
-                <mat-form-field>
-                  <input matInput formControlName="callbackURL" placeholder="Callback URL {{i+1}}">
-                  <button mat-icon-button color="accent" matSuffix (click)="removeCallbackURL(i)">
-                    <mat-icon>close</mat-icon>
-                  </button>
-                </mat-form-field>
-              </div>
-            </div>
-            <button mat-icon-button color="accent" (click)="addCallbackURL()">
-                Add Callback URL <mat-icon>add</mat-icon>
-            </button>
-          </mat-card-content>
-          <mat-card-actions>
-            <button (click)="createClient()" mat-button color="primary" [disabled]="!clientForm.valid" *ngIf="!clientId">Create</button>
-            <button (click)="updateClient()" mat-button color="primary" [disabled]="!clientForm.valid" *ngIf="clientId">Update</button>
-          </mat-card-actions>
-        </mat-card>
-      </form>
-      <form [formGroup]="registrationForm" *ngIf="uuid !== 'new'">
-        <mat-card>
-          <mat-card-title>Registration Details</mat-card-title>
-          <mat-card-content fxLayout="column">
             <mat-form-field>
               <input matInput placeholder="Webhook URL" formControlName="webhookURL">
             </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="User Key" formControlName="userKey">
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="License Number" formControlName="licenseNumber">
+            </mat-form-field>
           </mat-card-content>
           <mat-card-actions>
-            <button (click)="updateClientRegistration()" mat-button color="primary" [disabled]="!registrationForm.valid">Update</button>
+            <button (click)="registerClient()" mat-button color="primary" [disabled]="!clientForm.valid" *ngIf="!clientId">Register</button>
+            <button (click)="updateClientRegistration()" mat-button color="primary" [disabled]="!clientForm.valid" *ngIf="clientId">Update Registration</button>
           </mat-card-actions>
         </mat-card>
       </form>

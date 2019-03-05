@@ -1,0 +1,6 @@
+{
+    "root": ".",
+    "variables": {
+        "docUrl": "http://digithinkit.github.io/aggregator-api"
+    }
+}

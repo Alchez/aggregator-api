@@ -21,9 +21,6 @@ describe('ClientComponent', () => {
         clientID: id,
       });
     },
-    getScopes(): Observable<any> {
-      return of([{ name: 'openid' }, { name: 'email' }, { name: 'roles' }]);
-    },
   };
 
   beforeEach(async(() => {
