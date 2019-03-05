@@ -9,20 +9,23 @@ import { TrackAndTraceModule } from './track-and-trace/track-and-trace.module';
 import { CommonModule } from './common/common.module';
 import { SystemSettingsModule } from './system-settings/system-settings.module';
 
-const config = new ConfigService();
-
 @Module({
   imports: [
     ConfigModule,
     HttpModule,
-    MongooseModule.forRoot(
-      `mongodb://${config.get('DB_HOST')}/${config.get('DB_NAME')}`,
-      {
-        useNewUrlParser: true,
-        // https://github.com/Automattic/mongoose/issues/6890#issuecomment-416410444
-        useCreateIndex: true,
+    MongooseModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: async (config: ConfigService) => {
+        const uri = `mongodb://${config.get('DB_USER')}:${config.get(
+          'DB_PASSWORD',
+        )}@${config.get('DB_HOST')}/${config.get('DB_NAME')}`;
+        return {
+          uri,
+          useNewUrlParser: true,
+        };
       },
-    ),
+      inject: [ConfigService],
+    }),
     AuthModule,
     TrackAndTraceModule,
     CommonModule,

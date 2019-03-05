@@ -141,6 +141,27 @@ steps:
       exclude:
         - pull_request
 
+- name: helm-deploy-staging
+  group: deploy
+  image: dtzar/helm-kubectl:latest
+  environment:
+    kube_config:
+      from_secret: staging_kube_config
+  commands:
+    - mkdir -p /etc/deploy
+    - echo ${kube_config} | base64 -d > ${KUBECONFIG}
+    - kubectl config use-context staging
+    - helm init --service-account staging-user --client-only
+    - helm repo add stable https://kubernetes-charts.storage.googleapis.com/
+    - helm repo add incubator https://kubernetes-charts-incubator.storage.googleapis.com/
+    - helm repo update
+    - ./scripts/deploy-staging.sh
+  when:
+    branch:
+      - staging
+    event:
+      - push
+
 ######################################
 # Use for local testing docker build #
 ######################################
