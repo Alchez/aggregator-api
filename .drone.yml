@@ -145,11 +145,12 @@ steps:
   group: deploy
   image: dtzar/helm-kubectl:latest
   environment:
-    kube_config:
+    KUBECONFIG: /etc/deploy/config
+    KUBE_CONFIG:
       from_secret: staging_kube_config
   commands:
     - mkdir -p /etc/deploy
-    - echo ${kube_config} | base64 -d > ${KUBECONFIG}
+    - echo $${KUBE_CONFIG} | base64 -d > $${KUBECONFIG}
     - kubectl config use-context staging
     - helm init --service-account staging-user --client-only
     - helm repo add stable https://kubernetes-charts.storage.googleapis.com/
