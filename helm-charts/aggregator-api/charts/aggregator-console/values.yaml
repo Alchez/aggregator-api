@@ -1,11 +1,11 @@
-# Default values for aggregator-service.
+# Default values for aggregator-console.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
 replicaCount: 1
 
 image:
-  repository: bloomstack/aggregator-service
+  repository: bloomstack/aggregator-console
   tag: latest
   pullPolicy: Always
 
@@ -14,7 +14,7 @@ fullnameOverride: ""
 
 service:
   type: ClusterIP
-  port: 7100
+  port: 8100
 
 NODE_ENV: production
 
@@ -27,11 +27,11 @@ ingress:
   paths:
     - /
   hosts:
-    - api.bloomstack.com
+    - trace.bloomstack.com
   tls:
-   - secretName: api-bloomstack-com-tls
+   - secretName: trace-bloomstack-com-tls
      hosts:
-       - api.bloomstack.com
+       - trace.bloomstack.com
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
@@ -51,19 +51,6 @@ tolerations: []
 
 affinity: {}
 
-persistence:
-  enabled: true
-  size: 1Gi
-  # storageClass: do-block-storage
-
-mongodb:
-  # Disable password
-  usePassword: false
-  # security options
-  security:
-    authorization: disabled
-  # Enable persistent storage
-  persistence:
-    enabled: true
-    # storageClass: do-block-storage
-    size: 1Gi
+mongodbHost: "global-mongodb.mongodb.svc.cluster.local"
+mongodbName: "aggregator-console"
+mongodbUser: "aggregator-console"

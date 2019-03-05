@@ -29,13 +29,6 @@ RUN chown -R bloomstack:bloomstack /home/bloomstack
 # set project directory
 WORKDIR /home/bloomstack/aggregator-service
 
-# Mount volume for files
-RUN mkdir -p /home/bloomstack/aggregator-service/files/public \
-    /home/bloomstack/aggregator-service/files/private
-
-# Mount volume
-VOLUME ["/home/bloomstack/aggregator-service/files"]
-
 # Expose port
 EXPOSE 7100
 
