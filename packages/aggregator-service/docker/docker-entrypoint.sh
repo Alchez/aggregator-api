@@ -1,7 +1,5 @@
 #!/bin/bash
 
-chown -R bloomstack:bloomstack /home/bloomstack/aggregator-service/files
-
 function checkEnv() {
   if [[ -z "$DB_HOST" ]]; then
     echo "DB_HOST is not set"
@@ -9,6 +7,18 @@ function checkEnv() {
   fi
   if [[ -z "$DB_NAME" ]]; then
     echo "DB_NAME is not set"
+    exit 1
+  fi
+  if [[ -z "$DB_USER" ]]; then
+    echo "DB_USER is not set"
+    exit 1
+  fi
+  if [[ -z "$DB_PASSWORD" ]]; then
+    echo "DB_PASSWORD is not set"
+    exit 1
+  fi
+  if [[ -z "$VENDOR_KEY" ]]; then
+    echo "VENDOR_KEY is not set"
     exit 1
   fi
   if [[ -z "$NODE_ENV" ]]; then

@@ -19,27 +19,27 @@ spec:
         app.kubernetes.io/name: {{ include "aggregator-service.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
-      volumes:
-        - name: {{ .Release.Name }}-data
-      {{- if .Values.persistence.enabled }}
-          persistentVolumeClaim:
-            claimName: {{ .Release.Name }}-data
-
-      {{- else }}
-          emptyDir: {}
-      {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          volumeMounts:
-            - name : {{ .Release.Name }}-data
-              mountPath : "/home/bloomstack/aggregator-service/files"
           env:
             - name: "DB_HOST"
-              value: {{ template "mongodb.fullname" . }}
+              value: {{ .Values.mongodbHost }}
             - name: "DB_NAME"
-              value: "aggregator-service"
+              value: {{ .Values.mongodbName }}
+            - name: "DB_USER"
+              value: {{ .Values.mongodbUser }}
+            - name: "DB_PASSWORD"
+              valueFrom:
+                secretKeyRef:
+                  key:  aggregatorServiceMongodbPassword
+                  name: {{ .Release.Name }}-secrets
+            - name: "VENDOR_KEY"
+              valueFrom:
+                secretKeyRef:
+                  key:  vendorKey
+                  name: {{ .Release.Name }}-secrets
             - name: "NODE_ENV"
               value: {{ .Values.NODE_ENV }}
           ports:
